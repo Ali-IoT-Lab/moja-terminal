@@ -1,0 +1,35 @@
+{
+  "name": "remote-termial",
+  "version": "0.0.10",
+  "main": "app.js",
+  "dependencies": {
+    "node-pty": "^0.7.6",
+    "socket.io-client": "^2.1.1",
+    "physical-cpu-count": "^2.0.0",
+    "request": "^2.88.0",
+    "nano-time": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  },
+  "description": "moja terminal 管理工具",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mountains-and-rivers/moja-terminal.git"
+  },
+  "keywords": [
+    "moja"
+  ],
+  "author": "Mountains-and-rivers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mountains-and-rivers/moja-terminal/issues"
+  },
+  "homepage": "https://github.com/Mountains-and-rivers/moja-terminal#readme"
+}
