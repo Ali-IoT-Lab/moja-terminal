@@ -1,6 +1,6 @@
 {
   "name": "remote-termial",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "app.js",
   "dependencies": {
     "node-pty": "^0.7.6",
