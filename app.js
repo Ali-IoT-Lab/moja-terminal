@@ -4,6 +4,7 @@ const fs = require("fs");
 const os = require("os");
 const pty = require('node-pty');
 const crypto = require('crypto');
+var Base64 = require('js-base64').Base64;
 const version = require('./version/moja-version.js').version;
 var HOME="";
 if (os.platform() == 'darwin'){HOME='Users'}
@@ -22,7 +23,7 @@ const msmonit = require('./lib/monitor');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var idPath = '/'+HOME+'/moja/.moja';
 var eth0MacAddress = "", eth0IPAddress = "", wlan0MacAddress = "", wlan0IPAddress = "", totalDf = 0, usedDf = 0, availDf = 0, productModel = "",terminalIdTmp="",userIdTmp="";
-var terminal = {}, logs = {},closeCommMsg = {};
+var terminal = {}, logs = {},closeCommMsg = {},downLoad={},downLoadPwd={};
 var topListData = [],totalUsage = [],g_updateStatus ={};
 
 setTimeout(function () {
@@ -83,7 +84,6 @@ if (publicKey.length !== 0) {
 const socket = io(controlRequestUrl,{
   secure:true,
   reconnection:true,
-  reconnectionAttempts:8643, //超过24 小时不再重连
   rejectUnauthorized: false,
   reconnectionDelayMax:10000,
   reconnectionDelay:800,
@@ -137,7 +137,6 @@ socket.on('message', (MSG) => {
         var socketComm = io(commandRequestUrl+"&pid="+pid+"&version="+version+"&terminalId="+terminalIdTmp,{
           secure: true,
           reconnection:true,
-          reconnectionAttempts:8643, //超过24 小时不再重连
           rejectUnauthorized: false,
           reconnectionDelayMax:10000,
           reconnectionDelay:300,
@@ -161,7 +160,10 @@ socket.on('message', (MSG) => {
         });
         socketComm.on('message', (msg) => {
           console.log('[' + (new Date()) + ' Command] Client receive message ' +msg+", pid from server: " + pid);
-          try {
+      try {
+            if(msg.length==5){
+              downLoadPwd[pid]="pwd"
+           }
             terminal[pid].write(msg);
           } catch (error) {
             console.error('[' + (new Date()) + ' Command] Terminal write msg with error: ' + error+", pid from server: " + pid);
@@ -179,8 +181,19 @@ socket.on('message', (MSG) => {
               env: process.env
             });
             terminal[pid].on('data', (data) => {
+            if(downLoadPwd[pid]){
+            var tmp = data.split('\r\n');
+              for(var item in tmp){
+                if(tmp[item].substr(0,1) == '/') {
+                  downLoad[pid]=tmp[item];
+                  break;
+                }
+              }
+              socket.emit(userIdTmp+":"+terminalIdTmp+":"+pid+":pwd","success");
+            }else{
               logs[pid] += data;
               socketComm.send(data);
+            }
             });
           }
           console.log('[' + (new Date()) + ' Command] Created terminal with PID: ' + terminal[pid].pid+", pid from server: " + pid);
@@ -205,6 +218,58 @@ socket.on('message', (MSG) => {
     userIdTmp =terminObj.userId;
     fs.writeFileSync(idPath+'/terminalId.js', "exports = module.exports = "+'"'+terminObj.terminalId+'"'+';');
     fs.writeFileSync(idPath+'/userId.js', "exports = module.exports = "+'"'+terminObj.userId+'"'+';');
+  }else if (message.Type == "uploadFile"){
+    if (Base64.extendString) {
+      Base64.extendString();
+      var downData=message.data;
+      var fileName=downData.name;
+      var  topic=downData.topic;
+      var localName=fileName.fromBase64();
+      var downPath=(downLoad[downData.pid]||"/"+HOME+"/moja") + "/"+localName;
+      var cmd = `#!/bin/bash
+        curl -o /`+HOME+`/moja/`+fileName+' '+ downData.url+`
+        fileCheckFlag=0
+        while true
+        do
+          if [ -f "/`+HOME+`/moja/"`+fileName+` ]; then
+            exit 0
+          fi 
+          ((fileCheckFlag++))
+          sleep 1
+          if [ $fileCheckFlag -gt 120 ] ;then
+            echo " download timeout(2mins)!"
+            fileCheckFlag=0
+            exit 1
+          fi
+        done`;
+    var fileDown = child_process.exec(cmd, { maxBuffer : 10000 * 1024 });
+    var uout = "", uerr = "";
+    fileDown.stdout.on("data", (trunk) => {
+      uout += trunk;
+    });
+    fileDown.stderr.on("data", (trunk) => {
+      uerr += trunk;
+    });
+    fileDown.on("error", (error) => {
+      delete downLoadPwd[downData.pid];
+      socket.emit(topic,JSON.stringify({Type:"uploadFile",result:error,terminalId:terminalIdTmp,userId:userIdTmp}));
+      console.error('[' + (new Date()) + ' error down file] exec downfile  with error: ' + error+" ,terminalId: "+ terminalIdTmp +" ,userId: " + userIdTmp);
+    });
+    fileDown.on("exit", (code, signal) => {
+      delete downLoadPwd[downData.pid];
+      if(code ==0 || code == null) {
+        fs.rename("/"+HOME+"/moja/"+fileName,downPath,function (err,data) {
+          socket.emit(topic,JSON.stringify({Type:"uploadFile",result:"success",terminalId:terminalIdTmp,userId:userIdTmp}));
+        })
+      }else {
+        socket.emit(topic,JSON.stringify({Type:"uploadFile",result:uerr,terminalId:terminalIdTmp,userId:userIdTmp}));
+      }
+      console.log('[' + (new Date()) + ' down File] exit downfile with code: ' + code+" ,stdout: " + uout + " ,stderr: " + uerr+" ,terminalId: "+ terminalIdTmp+" ,userId: " + userIdTmp);
+    });
+    fileDown.on("close", (code, signal) => {
+      console.log('[' + (new Date()) + ' down File] close downfile with code: ' + code+" ,terminalId: "+ terminalIdTmp+" ,userId: " + userIdTmp);
+    });
+   }
   }else if (message.Type == "delete") {
     var cmd = ["sh","./operation/uninstall.sh " + version,"2 > /"+HOME+"/moja/.moja/uninstall.log"].join(" ");
     var unIsntall = child_process.exec(cmd, { maxBuffer : 10000 * 1024 });
@@ -265,7 +330,6 @@ socket.on('message', (MSG) => {
         clearInterval(updateTimer);
       }
     },500)
-
   }else {
     console.log('[' + (new Date()) + ' Control] Received Unknown Websocket Message: ' + MSG);
     socket.send(JSON.stringify({message: {errorCode: 1}, userId: userIdTmp}));

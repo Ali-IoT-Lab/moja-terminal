@@ -1,18 +1,19 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.12",
+  "version": "0.0.1",
   "main": "app.js",
   "dependencies": {
     "node-pty": "^0.7.6",
     "socket.io-client": "^2.1.1",
     "physical-cpu-count": "^2.0.0",
     "request": "^2.88.0",
-    "nano-time": "^1.0.0"
+    "nano-time": "^1.0.0",
+    "js-base64": "^2.4.9"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"
   },
-  "description": "moja terminal 管理工具",
+  "description": "树莓派客户端连接：",
   "directories": {
     "lib": "lib"
   },
@@ -23,10 +24,7 @@
     "type": "git",
     "url": "git+https://github.com/Mountains-and-rivers/moja-terminal.git"
   },
-  "keywords": [
-    "moja"
-  ],
-  "author": "Mountains-and-rivers",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Mountains-and-rivers/moja-terminal/issues"

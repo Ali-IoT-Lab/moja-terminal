@@ -1,7 +1,5 @@
 #!/bin/bash
 
-hostName="terminal.moja-lab.com"
-protocol="https"
 newClientVersion=$1
 HOME_DIR=""
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
@@ -13,34 +11,35 @@ else
   echo "-----------------------------------不支持的系统类型------------------------------------"
   exit 1
 fi
+hostName=`cat /$HOME_DIR/moja/.moja/moja-cloud-server-host|tr -d '\n'`
 logPath="/var/tmp/client-logs"
 pm2Path="/$HOME_DIR/moja/.moja/nodejs/bin/pm2"
-clientPath="/$HOME_DIR/moja/.moja/remote-terminal-client"
-appPath="/$HOME_DIR/moja/.moja/remote-terminal-client/app.js"
-clientPath="/$HOME_DIR/moja/.moja/remote-terminal-client"
+clientPath="/$HOME_DIR/moja/.moja/moja-terminal"
+appPath="/$HOME_DIR/moja/.moja/moja-terminal/app.js"
+clientPath="/$HOME_DIR/moja/.moja/moja-terminal"
 npmopt="--userconfig=/$HOME_DIR/moja/.npmrc"
 envrun="sudo -u moja env PATH=$PATH:/$HOME_DIR/moja/.moja/nodejs/bin"
 echo "0"> /$HOME_DIR/moja/.moja/stage
 echo "--------------------------------------备份旧版本---------------------------------------"
-mv /$HOME_DIR/moja/.moja/remote-terminal-client /$HOME_DIR/moja/.moja/client-source
+mv /$HOME_DIR/moja/.moja/moja-terminal /$HOME_DIR/moja/.moja/client-source
 echo "1"> /$HOME_DIR/moja/.moja/stage
 echo "--------------------------------------下载新版本代码-------------------------------------"
-curl -o $clientPath.tar.gz $protocol://$hostName/api/remote-terminal/tar/remote-terminal-client.tar.gz
+curl -o $clientPath.tar.gz $hostName/api/remote-terminal/tar/moja-terminal.tar.gz
 if [ $? -ne 0 ] ; then
   echo "----------------------------------下载新版本代码失败-------------------------------------"
   exit 1
 fi
 echo "2"> /$HOME_DIR/moja/.moja/stage
 echo "--------------------------------------解压新版本代码-------------------------------------"
-tar -xvf /$HOME_DIR/moja/.moja/remote-terminal-client.tar.gz -C /$HOME_DIR/moja/.moja
+tar -xvf /$HOME_DIR/moja/.moja/moja-terminal.tar.gz -C /$HOME_DIR/moja/.moja
 if [ $? -ne 0 ] ; then
   echo "----------------------------------解压新版本代码失败-------------------------------------"
   exit 1
 fi
-rm -r -f /$HOME_DIR/moja/.moja/remote-terminal-client.tar.gz
+rm -r -f /$HOME_DIR/moja/.moja/moja-terminal.tar.gz
 echo "3"> /$HOME_DIR/moja/.moja/stage
 echo "--------------------------------------安装客户端依赖-------------------------------------"
-cd /$HOME_DIR/moja/.moja/remote-terminal-client
+cd /$HOME_DIR/moja/.moja/moja-terminal
 
 if [ `whoami` = 'moja' ] ; then
   npm install --unsafe-perm=true $npmopt
@@ -69,6 +68,6 @@ echo "5"> /$HOME_DIR/moja/.moja/stage
 if [ $result -ne 0 ] ; then
 echo "----------------------------------升级失败回退到旧版本代码---------------------------------"
   rm -r -f $clientPath
-  mv /$HOME_DIR/moja/.moja/client-source/remote-terminal-client /$HOME_DIR/moja/.moja/
+  mv /$HOME_DIR/moja/.moja/client-source/moja-terminal /$HOME_DIR/moja/.moja/
   exit 1
 fi

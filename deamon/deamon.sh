@@ -14,7 +14,7 @@ fi
 envrun="sudo -u moja env PATH=$PATH:/$HOME_DIR/moja/.moja/nodejs/bin"
 
 logPath="/var/tmp/client-logs"
-appPath="/$HOME_DIR/moja/.moja/remote-terminal-client/app.js"
+appPath="/$HOME_DIR/moja/.moja/moja-terminal/app.js"
 pm2Path="/$HOME_DIR/moja/.moja/nodejs/bin/pm2"
 
 tmp=`ps -ef | grep $appPath | grep -v grep`

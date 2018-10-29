@@ -28,9 +28,9 @@ rm -r -f /var/tmp//var/tmp/client-logs-tar
 
 if [ $osType = "darwin" ] ;then
   kill -9 $(ps -ef|grep "/Users/moja/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
-  kill -9 $(ps -ef|grep "/Users/moja/.moja/remote-terminal-client/app.js"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+  kill -9 $(ps -ef|grep "/Users/moja/.moja/moja-terminal/app.js"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
 fi
 if [ $osType = "linux" ] ;then
   ps -ef|grep -w '/home/moja/.pm2'|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
-  ps -ef|grep -w '/home/moja/.moja/remote-terminal-client/app.js'|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w '/home/moja/.moja/moja-terminal/app.js'|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi

@@ -1,7 +1,7 @@
 exports = module.exports = {
   httProtocol:'https://',
-  HOST:'terminal.moja-lab.com',
-  ipAddress:'terminal.moja-lab.com',
+  HOST:'xuyaofang.com',
+  ipAddress:'xuyaofang.com',
   PORT:443,
   getScriptUrl:'/api/remote-terminal/shelldown',
   postLogUrl:'/api/remote-terminal/shelllog',
