@@ -1,0 +1,182 @@
+#!/usr/bin/env node
+
+var pkg = require('../package.json'),
+  cst = require('../lib/constants.js'),
+  operation = require('../lib/operation.js'),
+  chalk = require('chalk'),
+	commander = require('commander');
+
+if (process.argv.indexOf('-v') > -1) {
+  console.log(pkg.version);
+  process.exit(0);
+}
+
+commander.version(pkg.version)
+  .option('-v --version', 'print pm2 version')
+  .option('-s --silent', 'hide all messages', false)
+  .option('--ext <extensions>', 'watch only this file extensions')
+  .option('-n --name <name>', 'set a name for the process in the process list')
+  .option('-m --mini-list', 'display a compacted list without formatting')
+  .option('--interpreter <interpreter>', 'set a specific interpreter to use for executing app, default: node')
+  .option('--interpreter-args <arguments>', 'set arguments to pass to the interpreter (alias of --node-args)')
+  .option('--node-args <node_args>', 'space delimited arguments to pass to node')
+  .option('-o --output <path>', 'specify log file for stdout')
+  .option('-e --error <path>', 'specify log file for stderr')
+  .option('-l --log [path]', 'specify log file which gathers both stdout and stderr')
+  .option('--log-type <type>', 'specify log output style (raw by default, json optional)')
+  .option('--log-date-format <date format>', 'add custom prefix timestamp to logs')
+  .option('--time', 'enable time logging')
+  .option('--disable-logs', 'disable all logs storage')
+  .option('--env <environment_name>', 'specify which set of environment variables from ecosystem file must be injected')
+  .option('-a --update-env', 'force an update of the environment with restart/reload (-a <=> apply)')
+  .option('-f --force', 'force actions')
+  .option('-i --instances <number>', 'launch [number] instances (for networked app)(load balanced)')
+  .option('--parallel <number>', 'number of parallel actions (for restart/reload)')
+  .option('-p --pid <pid>', 'specify pid file')
+  .option('-k --kill-timeout <delay>', 'delay before sending final SIGKILL signal to process')
+  .option('--listen-timeout <delay>', 'listen timeout on application reload')
+  .option('--max-memory-restart <memory>', 'Restart the app if an amount of memory is exceeded (in bytes)')
+  .option('--restart-delay <delay>', 'specify a delay between restarts (in milliseconds)')
+  .option('--exp-backoff-restart-delay <delay>', 'specify a delay between restarts (in milliseconds)')
+  .option('-x --execute-command', 'execute a program using fork system')
+  .option('--max-restarts [count]', 'only restart the script COUNT times')
+  .option('-u --user <username>', 'define user when generating startup script')
+  .option('--uid <uid>', 'run target script with <uid> rights')
+  .option('--gid <gid>', 'run target script with <gid> rights')
+  .option('--cwd <path>', 'run target script as <username>')
+  .option('--hp <home path>', 'define home path when generating startup script')
+  .option('--wait-ip', 'override systemd script to wait for full internet connectivity to launch pm2')
+  .option('--service-name <name>', 'define service name when generating startup script')
+  .option('-c --cron <cron_pattern>', 'restart a running process based on a cron pattern')
+  .option('-w --write', 'write configuration in local folder')
+  .option('--no-daemon', 'run pm2 daemon in the foreground if it doesn\'t exist already')
+  .option('--source-map-support', 'force source map support')
+  .option('--only <application-name>', 'with json declaration, allow to only act on one application')
+  .option('--disable-source-map-support', 'force source map support')
+  .option('--wait-ready', 'ask pm2 to wait for ready event from your app')
+  .option('--merge-logs', 'merge logs from different instances but keep error and out separated')
+  .option('--watch [paths]', 'watch application folder for changes', function(v, m) { m.push(v); return m;}, [])
+  .option('--ignore-watch <folders|files>', 'List of paths to ignore (name or regex)')
+  .option('--watch-delay <delay>', 'specify a restart delay after changing files (--watch-delay 4 (in sec) or 4000ms)')
+  .option('--no-color', 'skip colors')
+  .option('--no-vizion', 'start an app without vizion feature (versioning control)')
+  .option('--no-autorestart', 'start an app without automatic restart')
+  .option('--no-treekill', 'Only kill the main process, not detached children')
+  .option('--no-pmx', 'start an app without pmx')
+  .option('--no-automation', 'start an app without pmx')
+  .option('--trace', 'enable transaction tracing with km')
+  .option('--disable-trace', 'disable transaction tracing with km')
+  .option('--attach', 'attach logging after your start/restart/stop/reload')
+  .option('--sort <field_name:sort>', 'sort process according to field\'s name')
+  .option('--v8', 'enable v8 data collecting')
+  .option('--event-loop-inspector', 'enable event-loop-inspector dump in pmx')
+  .option('--deep-monitoring', 'enable all monitoring tools (equivalent to --v8 --event-loop-inspector --trace)')
+  .usage('[cmd] app');
+
+function displayUsage() {
+  console.log('usage: moja [options] <command>')
+  console.log('');
+  console.log('moja -h, --help             all available commands and options');
+  console.log('moja examples               display moja usage examples');
+  console.log('moja <command> -h           help on a specific command');
+  console.log('');
+  console.log('Access moja files in ~/.moja');
+}
+
+function displayExamples() {
+  console.log('- Start and add a process to the moja process list:')
+  console.log('');
+  console.log(chalk.cyan('  $ moja start app.js --name app'));
+  console.log('');
+  console.log('- Show the process list:');
+  console.log('');
+  console.log(chalk.cyan('  $ moja ls'));
+  console.log('');
+  console.log('- Stop and delete a process from the moja process list:');
+  console.log('');
+  console.log(chalk.cyan('  $ moja delete app'));
+  console.log('');
+  console.log('- Stop, start and restart a process from the process list:');
+  console.log('');
+  console.log(chalk.cyan('  $ moja stop app'));
+  console.log(chalk.cyan('  $ moja start app'));
+  console.log(chalk.cyan('  $ moja restart app'));
+  console.log('');
+  console.log('- Clusterize an app to all CPU cores available:');
+  console.log('');
+  console.log(chalk.cyan('  $ moja start -i max'));
+  console.log('');
+  console.log('- Update moja :');
+  console.log('');
+  console.log(chalk.cyan('  $ npm install moja -g && moja update'));
+  console.log('');
+  console.log('- Install moja auto completion:')
+  console.log('');
+  console.log(chalk.cyan('  $ moja completion install'))
+  console.log('');
+  console.log('Check the full documentation on https://moja.io/doc');
+  console.log('');
+}
+
+commander.command('set-key')
+  .option('-e', 'set user email')
+  .option('-k', 'set public key')
+  .description('set moja key')
+  .action(function(cmd, opts) {
+    var value=cmd.parent.rawArgs;
+        value=value[value.length-1];
+    if (cmd.parent.rawArgs.indexOf('-k') !== -1) {
+      operation.set_key('-k',value)
+     }else if (cmd.parent.rawArgs.indexOf('-e') !== -1) {
+      operation.set_key('-e',value)
+    }else{
+      console.log("invalid parameter！")
+    }
+  });
+
+commander.command('start')
+  .description('start moja app')
+  .action(function(cmd, opts) {
+    operation.start()
+  });
+commander.command('restart')
+  .description('restart moja app')
+  .action(function(cmd, opts) {
+    console.log("restart moja app--------------------------")
+  });
+commander.command('delete')
+  .description('delete moja app')
+  .action(function(cmd, opts) {
+    console.log("delete moja app--------------------------")
+  });
+commander.command('examples')
+  .description('display moja usage examples')
+  .action(() => {
+    console.log(cst.PREFIX_MSG + chalk.grey('moja usage examples:\n'));
+    displayExamples();
+    process.exit(cst.SUCCESS_EXIT);
+  })
+commander.command('examples')
+  .description('display moja usage examples')
+  .action(() => {
+    console.log(cst.PREFIX_MSG + chalk.grey('moja usage examples:\n'));
+    displayExamples();
+    process.exit(cst.SUCCESS_EXIT);
+  })
+commander.command('*')
+  .action(function() {
+    console.log(cst.PREFIX_MSG + 'Command not found\n');
+    displayUsage();
+    // Check if it does not forget to close fds from RPC
+    process.exit(cst.ERROR_EXIT);
+  });
+//
+// Display help if 0 arguments passed to moja
+//
+if (process.argv.length == 2) {
+  displayUsage();
+  // Check if it does not forget to close fds from RPC
+  process.exit(cst.ERROR_EXIT);
+}
+
+commander.parse(process.argv);
