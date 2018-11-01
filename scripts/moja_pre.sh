@@ -42,10 +42,10 @@ if [ $? -ne 0 ] ; then
   echo "客户端安装包下载失败"
   exit 1
 fi
-tar -xvf clientPath.tar.gz -C /$HOME_DIR/moja/.moja
+tar -xvf $clientPath.tar.gz -C /$HOME_DIR/moja/.moja
 if [ $? -ne 0 ] ; then
   echo "客户端安装包解压失败"
   exit 1
 fi
 
-rm -r -f clientPath.tar.gz
+rm -r -f $clientPath.tar.gz
