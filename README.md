@@ -1,11 +1,11 @@
-### Moja
+### Moja-terminal
 
 Moja is a command line management tool that can install, restart, update, uninstall moja applications, and view the moja application log through the moja command and other functions.
 
-### Installing moja
+### Installing moja-terminal
 
 ```bash
-$ npm install moja -g
+$ npm install moja-terminal -g
 ```
 
 *npm is a builtin CLI when you install Node.js - [Installing Node.js with NVM](https://keymetrics.io/2015/02/03/installing-node-js-and-io-js-with-nvm/)*
