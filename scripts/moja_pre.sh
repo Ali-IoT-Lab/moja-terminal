@@ -1,6 +1,6 @@
 #!/bin/bash
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
-
+HOME_DIR=""
 function moja_file_init
 {
   touch $1/publicKey.js
@@ -19,11 +19,13 @@ function moja_file_init
 }
 
 if [ $osType = "linux" ] ;then
+  HOME_DIR='home'
   mkdir /home/moja
   mkdir /home/moja/.moja
   moja_file_init /home/moja/.moja
   npm install --prefix /home/moja/.moja pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
 elif [ $osType = "darwin" ] ;then
+  HOME_DIR='Users'
   mkdir /Users/moja
   mkdir /Users/moja/.moja
   moja_file_init /Users/moja/.moja
