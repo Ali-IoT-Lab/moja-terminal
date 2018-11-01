@@ -1,6 +1,6 @@
 ### Moja-terminal
 
-Moja is a command line management tool that can install, restart, update, uninstall moja applications, and view the moja application log through the moja command and other functions.
+Moja-terminal is a command line management tool that can install, restart, update, uninstall moja-terminal applications, and view the moja-terminal application log through the moja-terminal command and other functions.
 
 ### Installing moja-terminal
 
