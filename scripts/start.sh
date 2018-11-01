@@ -11,7 +11,6 @@ if [ $osType = "linux" ] ;then
   HOME_DIR='home'
 fi
 
-#/Users/moja/.moja/lib/node_modules/pm2/bin/pm2
 pm2Path="/$HOME_DIR/moja/.moja/lib/node_modules/pm2/bin/pm2"
 clientPath="/$HOME_DIR/moja/.moja/moja-terminal"
 logPath="/var/tmp/client-logs"
