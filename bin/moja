@@ -119,19 +119,10 @@ function displayExamples() {
 }
 
 commander.command('set-key')
-  .option('-e', 'set user email')
-  .option('-k', 'set public key')
   .description('set moja key')
   .action(function(cmd, opts) {
     var value=cmd.parent.rawArgs;
-        value=value[value.length-1];
-    if (cmd.parent.rawArgs.indexOf('-k') !== -1) {
-      operation.set_key('-k',value)
-     }else if (cmd.parent.rawArgs.indexOf('-e') !== -1) {
-      operation.set_key('-e',value)
-    }else{
-      console.log("invalid parameter！")
-    }
+     operation.set_key(value[value.length-1])
   });
 
 commander.command('start')

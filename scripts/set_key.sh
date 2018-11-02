@@ -21,4 +21,4 @@ email=`cat ./$moja_key |grep "email="|awk -F '"' '{print $2}'`
 publicKey=`echo -n $publickey| base64 -d`
 echo "module.exports ={publicKey:\`$publicKey\`}" > /$HOME_DIR/moja/.moja/publicKey.js
 echo "module.exports ={email:\`$email\`}" > /$HOME_DIR/moja/.moja/email.js
-echo "module.exports ={user_key:$moja_key}" > ~/.moja
+echo "{user_key:$moja_key}" > ~/.moja
