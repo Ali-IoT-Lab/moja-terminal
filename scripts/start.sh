@@ -12,8 +12,8 @@ if [ $osType = "linux" ] ;then
 fi
 
 pm2Path="/$HOME_DIR/moja/.moja/lib/node_modules/pm2/bin/pm2"
-clientPath="/$HOME_DIR/moja/.moja/moja-terminal"
+clientPath="/$HOME_DIR/moja/.moja/moja-terminal-client"
 logPath="/var/tmp/client-logs"
-appPath="/$HOME_DIR/moja/.moja/moja-terminal/app.js"
-clientVersion=`npm view moja-terminal version`
+appPath="/$HOME_DIR/moja/.moja/moja-terminal-client/app.js"
+clientVersion=`npm view moja-terminal-client version`
 $pm2Path start $appPath --log-type json --merge-logs --log-date-format="YYYY-MM-DD HH:mm:ss Z" -o $logPath/out.log -e $logPath/err.log --name moja-terminal-v$clientVersion
