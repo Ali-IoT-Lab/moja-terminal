@@ -121,8 +121,7 @@ function displayExamples() {
 commander.command('set-key')
   .description('set moja key')
   .action(function(cmd, opts) {
-    var value=cmd.parent.rawArgs;
-     operation.set_key(value[value.length-1])
+     operation.set_key(cmd)
   });
 
 commander.command('start')
