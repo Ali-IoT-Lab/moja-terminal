@@ -10,6 +10,7 @@ function moja_file_init
   touch $1/stage
   touch $1/terminalId.js
   touch $1/userId.js
+  mkdir /var/tmp/client-logs
 
   echo $hostName > $1/moja-cloud-server-host
   echo "module.exports =\"\";" > $1/userId.js
