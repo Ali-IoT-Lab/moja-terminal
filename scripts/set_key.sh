@@ -48,4 +48,7 @@ mv /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion/start.js 
 cd /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion
 npm install --unsafe-perm=true
 
+currUser=`whoami`
+currGroup=`ls -l|grep $currUser|awk -F ' ' '{print$4}'`
+chown -R $currUser:$currGroup /$HOME_DIR/moja
 
