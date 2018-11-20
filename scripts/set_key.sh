@@ -22,7 +22,7 @@ email=`cat $basepath/$moja_key |grep "email="|awk -F '"' '{print $2}'`
 clientVersion=`cat $basepath/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
 if [ $osType = "darwin" ] ;then
-  realPublicKey=`echo $publickey | base64 -D`
+  realPublicKey=`echo $publickey | openssl base64 -d`
 fi
 
 if [ $osType = "linux" ] ;then
