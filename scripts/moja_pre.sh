@@ -27,7 +27,12 @@ else
   exit 1
 fi
 
+currGroup=`ls -l|grep `whoami`|awk -F ' ' '{print$4}'`
+currUser=`whoami`
+
 mkdir /$HOME_DIR/moja
 mkdir /$HOME_DIR/moja/.moja
+
+chown -R $currUser:$currGroup /$HOME_DIR/moja
 moja_file_init /$HOME_DIR/moja/.moja
 npm install --prefix /$HOME_DIR/moja/.moja pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
