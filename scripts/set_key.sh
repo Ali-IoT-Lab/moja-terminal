@@ -21,16 +21,8 @@ publickey=`cat $basepath/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
 email=`cat $basepath/$moja_key |grep "email="|awk -F '"' '{print $2}'`
 clientVersion=`cat $basepath/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
-if [ $osType = "darwin" ] ;then
-  realPublicKey=`echo $publickey | tr -d '\n' | openssl base64 -d`
-fi
-
-if [ $osType = "linux" ] ;then
-  realPublicKey=`echo -n $publickey | base64 -d`
-fi
-
 echo $clientVersion > /$HOME_DIR/moja/.moja/moja-version
-echo "module.exports ={publicKey:\`$realPublicKey\`}" > /$HOME_DIR/moja/.moja/publicKey.js
+echo "module.exports ={publicKey:\`$publickey\`}" > /$HOME_DIR/moja/.moja/publicKey.js
 echo "module.exports ={email:\`$email\`}" > /$HOME_DIR/moja/.moja/email.js
 echo "{user_key:$moja_key}" > ~/.moja
 
@@ -51,6 +43,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 rm -r -f $clientPath.tar.gz
+rm -r -f $basepath/$moja_key
 mv /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion/start.js /$HOME_DIR/moja/.moja/client
 cd /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion
 npm install --unsafe-perm=true
