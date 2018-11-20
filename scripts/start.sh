@@ -12,8 +12,8 @@ if [ $osType = "linux" ] ;then
 fi
 
 clientVersion=`cat /$HOME_DIR/moja/.moja/moja-version`
-nodePath="/$HOME_DIR/moja/.moja/nodejs/bin/node"
-$nodePath /$HOME_DIR/moja/.moja/client/start.js $clientVersion
+node /$HOME_DIR/moja/.moja/client/start.js $clientVersion 'npm'
+
 if [ $? -ne 0 ] ; then
   echo "启动服务失败!"
   exit 1

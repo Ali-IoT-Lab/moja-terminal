@@ -50,5 +50,9 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
+rm -r -f $clientPath.tar.gz
 mv /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion/start.js /$HOME_DIR/moja/.moja/client
+cd /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion
+npm install --unsafe-perm=true
+
 
