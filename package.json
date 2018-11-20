@@ -13,7 +13,6 @@
   },
   "scripts": {
     "preinstall": "bash scripts/moja_pre.sh",
-    "postinstall": "bash scripts/moja_pos.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

@@ -11,9 +11,10 @@ if [ $osType = "linux" ] ;then
   HOME_DIR='home'
 fi
 
-pm2Path="/$HOME_DIR/moja/.moja/lib/node_modules/pm2/bin/pm2"
-clientPath="/$HOME_DIR/moja/.moja/moja-terminal-client"
-logPath="/var/tmp/client-logs"
-appPath="/$HOME_DIR/moja/.moja/moja-terminal-client/app.js"
-clientVersion=`npm view moja-terminal-client version`
-$pm2Path start $appPath --log-type json --merge-logs --log-date-format="YYYY-MM-DD HH:mm:ss Z" -o $logPath/out.log -e $logPath/err.log --name moja-terminal-v$clientVersion
+clientVersion=`cat /$HOME_DIR/moja/.moja/moja-version`
+nodePath="/$HOME_DIR/moja/.moja/nodejs/bin/node"
+$nodePath /$HOME_DIR/moja/.moja/client/start.js $clientVersion
+if [ $? -ne 0 ] ; then
+  echo "启动服务失败!"
+  exit 1
+fi
