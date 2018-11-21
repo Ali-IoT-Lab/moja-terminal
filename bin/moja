@@ -136,7 +136,7 @@ commander.command('download')
 commander.command('restart')
   .description('restart moja app')
   .action(function(cmd, opts) {
-    console.log("restart moja app--------------------------")
+
   });
 commander.command('delete')
   .description('delete moja app')

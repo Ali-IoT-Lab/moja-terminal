@@ -4,6 +4,10 @@ HOME_DIR=""
 hostName='http://47.97.210.118'
 function moja_file_init
 {
+
+
+  echo "036406034063060q60r60qwe"
+  echo $1
   touch $1/publicKey.js
   touch $1/email.js
   touch $1/moja-cloud-server-host
@@ -15,7 +19,7 @@ function moja_file_init
   chmod 777 $$1/userId.js
   chmod 777 $1/publicKey.js
   chmod 777 /var/tmp/client-logs
-  
+
   echo $hostName > $1/moja-cloud-server-host
   echo "module.exports =\"\";" > $1/userId.js
   echo "module.exports =\"\";" > $1/terminalId.js
