@@ -4,8 +4,6 @@ HOME_DIR=""
 hostName='http://47.97.210.118'
 function moja_file_init
 {
-
-
   echo "036406034063060q60r60qwe"
   echo $1
   touch $1/publicKey.js
@@ -16,7 +14,7 @@ function moja_file_init
   touch $1/userId.js
   mkdir /var/tmp/client-logs
   chmod 777 $1/email.js
-  chmod 777 $$1/userId.js
+  chmod 777 $1/userId.js
   chmod 777 $1/publicKey.js
   chmod 777 /var/tmp/client-logs
 
