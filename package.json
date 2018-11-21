@@ -1,6 +1,6 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "moja远程终端管理工具客户端",
   "main": "app.js",
   "repository": {
@@ -12,7 +12,7 @@
     "moja": "./bin/moja"
   },
   "scripts": {
-    "preinstall": "bash scripts/moja_pre.sh",
+    "preinstall": "bash scripts/moja-pre.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

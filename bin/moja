@@ -128,6 +128,11 @@ commander.command('start')
   .action(function(cmd, opts) {
     operation.start()
   });
+commander.command('download')
+  .description('download client file')
+  .action(function(cmd, opts) {
+    operation.download(cmd)
+  });
 commander.command('restart')
   .description('restart moja app')
   .action(function(cmd, opts) {
