@@ -11,8 +11,11 @@ function moja_file_init
   touch $1/terminalId.js
   touch $1/userId.js
   mkdir /var/tmp/client-logs
-  chomd 777 /var/tmp/client-logs
-
+  chmod 777 $1/email.js
+  chmod 777 $$1/userId.js
+  chmod 777 $1/publicKey.js
+  chmod 777 /var/tmp/client-logs
+  
   echo $hostName > $1/moja-cloud-server-host
   echo "module.exports =\"\";" > $1/userId.js
   echo "module.exports =\"\";" > $1/terminalId.js

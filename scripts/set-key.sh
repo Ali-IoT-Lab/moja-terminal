@@ -50,5 +50,10 @@ npm install --unsafe-perm=true
 
 currUser=`whoami`
 currGroup=`ls -l|grep $currUser|awk -F ' ' '{print$4}'`
+
+echo "KKKKKLKLKLKLKKLKLKLKLKLKLKLKLKLKLKLKLKKL"
+echo $currUser
+echo $currGroup
+
 chown -R $currUser:$currGroup /$HOME_DIR/moja
 
