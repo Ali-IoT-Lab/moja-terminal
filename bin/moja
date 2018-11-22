@@ -19,7 +19,7 @@ function displayUsage() {
   console.log('usage: moja [options] <command>')
   console.log('');
   console.log('moja -h, --help             all available commands and options');
-  console.log('moja examples               display moja usage examples');
+  console.log('moja examples               display moja-terminal usage examples');
   console.log('moja <command> -h           help on a specific command');
   console.log('');
   console.log('Access moja files in ~/.moja');
@@ -28,45 +28,28 @@ function displayUsage() {
 function displayExamples() {
   console.log('- Start and add a process to the moja process list:')
   console.log('');
-  console.log(chalk.cyan('  $ moja start app.js --name app'));
+  console.log(chalk.cyan('  $ moja start '));
   console.log('');
-  console.log('- Show the process list:');
+  console.log('- Set the user key:');
   console.log('');
-  console.log(chalk.cyan('  $ moja ls'));
+  console.log(chalk.cyan('  $ moja set-key xxxx'));
   console.log('');
-  console.log('- Stop and delete a process from the moja process list:');
+  console.log('- Download file from client:');
   console.log('');
-  console.log(chalk.cyan('  $ moja delete app'));
+  console.log(chalk.cyan('  $ moja download filename'));
   console.log('');
-  console.log('- Stop, start and restart a process from the process list:');
-  console.log('');
-  console.log(chalk.cyan('  $ moja stop app'));
-  console.log(chalk.cyan('  $ moja start app'));
-  console.log(chalk.cyan('  $ moja restart app'));
-  console.log('');
-  console.log('- Clusterize an app to all CPU cores available:');
-  console.log('');
-  console.log(chalk.cyan('  $ moja start -i max'));
-  console.log('');
-  console.log('- Update moja :');
-  console.log('');
-  console.log(chalk.cyan('  $ npm install moja -g && moja update'));
-  console.log('');
-  console.log('- Install moja auto completion:')
-  console.log('');
-  console.log(chalk.cyan('  $ moja completion install'))
-  console.log('');
-  console.log('Check the full documentation on https://moja.io/doc');
+  console.log('Check the full documentation on https://github.com/Ali-IoT-Lab/moja-terminal');
   console.log('');
 }
 commander.command('set-key')
-  .description('set moja key')
+  .description('set user key')
   .action(function(cmd, opts) {
-     operation.set_key(cmd)
+    console.log('set user key ...');
+    operation.set_key(cmd)
   });
 
 commander.command('start')
-  .description('start moja app')
+  .description('start client app')
   .action(function(cmd, opts) {
     operation.start()
   });
@@ -75,30 +58,13 @@ commander.command('download')
   .action(function(cmd, opts) {
     operation.download(cmd)
   });
-commander.command('restart')
-  .description('restart moja app')
-  .action(function(cmd, opts) {
-
-  });
-commander.command('delete')
-  .description('delete moja app')
-  .action(function(cmd, opts) {
-    console.log("delete moja app--------------------------")
-  });
 commander.command('examples')
   .description('display moja usage examples')
   .action(() => {
     console.log(cst.PREFIX_MSG + chalk.grey('moja usage examples:\n'));
     displayExamples();
     process.exit(cst.SUCCESS_EXIT);
-  })
-commander.command('examples')
-  .description('display moja usage examples')
-  .action(() => {
-    console.log(cst.PREFIX_MSG + chalk.grey('moja usage examples:\n'));
-    displayExamples();
-    process.exit(cst.SUCCESS_EXIT);
-  })
+  });
 commander.command('*')
   .action(function() {
     console.log(cst.PREFIX_MSG + 'Command not found\n');
