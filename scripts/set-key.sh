@@ -24,7 +24,7 @@ function moja_file_init
   echo "module.exports =\"\";" > $moja_home/terminalId.js
   echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
   echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
-  npm install --prefix $moja_home pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
+  #npm install --prefix $moja_home pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
 }
 
 function moja_client_init
