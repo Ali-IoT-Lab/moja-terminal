@@ -3,46 +3,47 @@
 moja_key=$1
 mkdir ~/.moja
 touch ~/.moja
+moja_home=~/.moja
 hostName="http://47.97.210.118"
 function moja_file_init
 {
-  touch $1/publicKey.js
-  touch $1/email.js
-  touch $1/moja-cloud-server-host
-  touch $1/stage
-  touch $1/terminalId.js
-  touch $1/userId.js
+  touch $moja_home/publicKey.js
+  touch $moja_home/email.js
+  touch $moja_home/moja-cloud-server-host
+  touch $moja_home/stage
+  touch $moja_home/terminalId.js
+  touch $moja_home/userId.js
   mkdir /var/tmp/client-logs
-  chmod 777 $1/email.js
-  chmod 777 $1/userId.js
-  chmod 777 $1/publicKey.js
+  chmod 777 $moja_home/email.js
+  chmod 777 $moja_home/userId.js
+  chmod 777 $moja_home/publicKey.js
   chmod 777 /var/tmp/client-logs
 
-  echo $hostName > $1/moja-cloud-server-host
-  echo "module.exports =\"\";" > $1/userId.js
-  echo "module.exports =\"\";" > $1/terminalId.js
-  echo "module.exports ={email:\`$email\`}" > $1/email.js
-  echo "module.exports ={publicKey:\`$publicKey\`}" > $1/publicKey.js
-  npm install --prefix $1 pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
+  echo $hostName > $moja_home/moja-cloud-server-host
+  echo "module.exports =\"\";" > $moja_home/userId.js
+  echo "module.exports =\"\";" > $moja_home/terminalId.js
+  echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
+  echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
+  npm install --prefix $moja_home pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
 }
 
 function moja_client_init
 {
   basepath=$(cd `dirname $0`; pwd)
   rm -r -f basepath/$moja_key
-  mkdir $1/client
+  mkdir $moja_home/client
   curl -o $basepath/$moja_key $hostName/shells/$moja_key
 
   publickey=`cat $basepath/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
   email=`cat $basepath/$moja_key |grep "email="|awk -F '"' '{print $2}'`
   clientVersion=`cat $basepath/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
-  echo $clientVersion > $1/moja-version
-  echo "module.exports ={publicKey:\`$publickey\`}" > $1/publicKey.js
-  echo "module.exports ={email:\`$email\`}" > $1/email.js
+  echo $clientVersion > $moja_home/moja-version
+  echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/publicKey.js
+  echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
   echo "{user_key:$moja_key}" > ~/.moja
 
-  clientPath="$1/client/remote-terminal-client-v$clientVersion"
+  clientPath="$moja_home/client/remote-terminal-client-v$clientVersion"
   curl -o $clientPath.tar.gz $hostName/api/remote-terminal/tar/remote-terminal-client-v$clientVersion.tar.gz
 
   if [ $? -ne 0 ] ; then
@@ -50,9 +51,9 @@ function moja_client_init
     exit 1
   fi
 
-  mkdir $1/client/remote-terminal-client-v$clientVersion
-  cd $1
-  tar -xvf $clientPath.tar.gz --strip 1 -C $1/client/remote-terminal-client-v$clientVersion
+  mkdir $moja_home/client/remote-terminal-client-v$clientVersion
+  cd $moja_home
+  tar -xvf $clientPath.tar.gz --strip 1 -C $moja_home/client/remote-terminal-client-v$clientVersion
   if [ $? -ne 0 ] ; then
     echo "客户端安装包解压失败!"
     exit 1
@@ -61,8 +62,8 @@ function moja_client_init
   rm -r -f $clientPath.tar.gz
   rm -r -f $basepath/$moja_key
 
-  mv $1/client/remote-terminal-client-v$clientVersion/start.js $1/client
-  cd $1/client/remote-terminal-client-v$clientVersion
+  mv $moja_home/client/remote-terminal-client-v$clientVersion/start.js $moja_home/client
+  cd $moja_home/client/remote-terminal-client-v$clientVersion
 
   npm install --unsafe-perm=true
 }
