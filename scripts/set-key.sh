@@ -25,7 +25,6 @@ function moja_file_init
   echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
   echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
   node_modules_path=echo `which moja`|awk -F 'moja' '{print $1}'
-  mv `which moja|awk -F 'bin' '{print$1}'`lib/node_modules/moja-terminal/node_modules/pm2 $moja_home
 }
 
 function moja_client_init
