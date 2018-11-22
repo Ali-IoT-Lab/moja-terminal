@@ -12,7 +12,7 @@ $ sudo npm install moja-terminal -g
 
 ### set key
 
-A moja key is a shell name that you can download it and get the hostname, version, email, publicKey.
+A moja key is a shell name that you can download it and get read the hostname, version, email, publicKey of moja application.
 
 You can set key like that:
 
