@@ -1,6 +1,6 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "moja远程终端管理工具客户端",
   "main": "app.js",
   "repository": {
@@ -20,7 +20,7 @@
     "lodash": "^4.17.11",
     "js-base64": "^2.4.9",
     "debug": "^3.1",
-    "pm2":"^3.2.2"
+    "pm2": "^3.2.2"
   },
   "license": "ISC",
   "bugs": {
