@@ -4,13 +4,42 @@ hostName="http://47.97.210.118"
 HOME_DIR=""
 touch ~/.moja
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
-if [ $osType = "darwin" ] ;then
-  HOME_DIR='Users'
-fi
 
 if [ $osType = "linux" ] ;then
   HOME_DIR='home'
+elif [ $osType = "darwin" ] ;then
+  HOME_DIR='Users'
+else
+  echo "不支持的系统类型！"
+  exit 1
 fi
+
+function moja_file_init
+{
+  touch $1/publicKey.js
+  touch $1/email.js
+  touch $1/moja-cloud-server-host
+  touch $1/stage
+  touch $1/terminalId.js
+  touch $1/userId.js
+  mkdir /var/tmp/client-logs
+  chmod 777 $1/email.js
+  chmod 777 $1/userId.js
+  chmod 777 $1/publicKey.js
+  chmod 777 /var/tmp/client-logs
+
+  echo $hostName > $1/moja-cloud-server-host
+  echo "module.exports =\"\";" > $1/userId.js
+  echo "module.exports =\"\";" > $1/terminalId.js
+  echo "module.exports ={email:\`$email\`}" > $1/email.js
+  echo "module.exports ={publicKey:\`$publicKey\`}" > $1/publicKey.js
+}
+
+mkdir /$HOME_DIR/moja
+mkdir /$HOME_DIR/moja/.moja
+
+moja_file_init /$HOME_DIR/moja/.moja
+npm install --prefix /$HOME_DIR/moja/.moja pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
 
 basepath=$(cd `dirname $0`; pwd)
 rm -r -f basepath/$moja_key
@@ -47,7 +76,4 @@ rm -r -f $basepath/$moja_key
 mv /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion/start.js /$HOME_DIR/moja/.moja/client
 cd /$HOME_DIR/moja/.moja/client/remote-terminal-client-v$clientVersion
 npm install --unsafe-perm=true
-
-currUser=`whoami`
-currGroup=`ls -l|grep $currUser|awk -F ' ' '{print$4}'`
 
