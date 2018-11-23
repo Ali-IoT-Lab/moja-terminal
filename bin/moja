@@ -72,13 +72,5 @@ commander.command('*')
     // Check if it does not forget to close fds from RPC
     process.exit(cst.ERROR_EXIT);
   });
-//
-// Display help if 0 arguments passed to moja
-//
-if (process.argv.length == 2) {
-  displayUsage();
-  // Check if it does not forget to close fds from RPC
-  process.exit(cst.ERROR_EXIT);
-}
 
 commander.parse(process.argv);

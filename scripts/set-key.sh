@@ -2,7 +2,7 @@
 
 moja_key=$1
 mkdir ~/.moja
-touch ~/.moja
+touch ~/.moja_key
 moja_home=~/.moja
 hostName="http://47.97.210.118"
 function moja_file_init
@@ -41,7 +41,7 @@ function moja_client_init
   echo $clientVersion > $moja_home/moja-version
   echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/publicKey.js
   echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
-  echo "{user_key:$moja_key}" > ~/.moja
+  #echo "{user_key:$moja_key}" > ~/.moja_key
 
   clientPath="$moja_home/client/remote-terminal-client-v$clientVersion"
   curl -o $clientPath.tar.gz $hostName/api/remote-terminal/tar/remote-terminal-client-v$clientVersion.tar.gz
@@ -66,8 +66,8 @@ function moja_client_init
   cd $moja_home/client/remote-terminal-client-v$clientVersion
 
   npm install --unsafe-perm=true
-  npm install pm2 --unsafe-perm  --registry https://registry.cnpmjs.org
 }
 
 moja_file_init ~/.moja
+
 moja_client_init ~/.moja
