@@ -67,7 +67,7 @@ function moja_client_init
   mv $moja_home/client/remote-terminal-client-v$clientVersion/start.js $moja_home/client
   cd $moja_home/client/remote-terminal-client-v$clientVersion
 
-  npm install --unsafe-perm=true
+  npm install --unsafe-perm=true --registry https://registry.cnpmjs.org
 }
 
 moja_file_init ~/.moja
