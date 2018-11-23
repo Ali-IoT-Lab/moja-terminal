@@ -1,6 +1,6 @@
 ### Moja-terminal
 
-Moja-terminal is a command line management tool that can install, set key and start, moja terminal application.
+Moja-terminal is a command line management tool that can install, set key and start moja terminal application.
 
 ### Installing moja-terminal
 
