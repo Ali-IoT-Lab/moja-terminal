@@ -13,12 +13,14 @@ function moja_file_init
   touch $moja_home/stage
   touch $moja_home/terminalId.js
   touch $moja_home/userId.js
+  touch $moja_home/install-mode
   mkdir /var/tmp/client-logs
   chmod 777 $moja_home/email.js
   chmod 777 $moja_home/userId.js
   chmod 777 $moja_home/publicKey.js
   chmod 777 /var/tmp/client-logs
 
+  echo "npm" > $moja_home/install-mode
   echo $hostName > $moja_home/moja-cloud-server-host
   echo "module.exports =\"\";" > $moja_home/userId.js
   echo "module.exports =\"\";" > $moja_home/terminalId.js
