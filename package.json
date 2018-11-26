@@ -1,6 +1,6 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "description": "moja远程终端管理工具客户端",
   "main": "app.js",
   "repository": {
@@ -12,7 +12,7 @@
     "moja": "./bin/moja"
   },
   "scripts": {
-    "preinstall": "bash scripts/preinstall.sh",
+    "preinstall": "node lib/crontab.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
