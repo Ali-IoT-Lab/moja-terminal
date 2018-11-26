@@ -57,5 +57,7 @@ rm -r -f $moja_home/$moja_key
 
 mv $moja_home/client/remote-terminal-client-v$clientVersion/start.js $moja_home/client
 cd $moja_home/client/remote-terminal-client-v$clientVersion
+
+npm config set loglevel=http
 npm install --unsafe-perm=true --registry https://registry.cnpmjs.org
 
