@@ -13,17 +13,18 @@ touch $moja_home/stage
 touch $moja_home/terminalId.js
 touch $moja_home/userId.js
 touch $moja_home/install-mode
+touch /var/tmp/npm-install-path
+
 mkdir $moja_home/tmpFile
 mkdir /var/tmp/client-logs
 
-
+echo $moja_home > /var/tmp/npm-install-path
 echo "npm" > $moja_home/install-mode
 echo $hostName > $moja_home/moja-cloud-server-host
 echo "module.exports =\"\";" > $moja_home/userId.js
 echo "module.exports =\"\";" > $moja_home/terminalId.js
 echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
 echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
-node_modules_path=echo `which moja`|awk -F 'moja' '{print $1}'
 
 
 rm -r -f $moja_home/$moja_key
@@ -54,6 +55,9 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
+cp -r -f $clientPath/deamon $moja_home/client
+cp -r -f $clientPathc/handleLog $moja_home/client
+
 rm -r -f $clientPath.tar.gz
 rm -r -f $moja_home/$moja_key
 
@@ -63,3 +67,7 @@ cd $moja_home/client/remote-terminal-client-v$clientVersion
 npm config set loglevel=http
 npm install --unsafe-perm=true --registry https://registry.cnpmjs.org
 
+if [ $? -ne 0 ] ; then
+  echo "下载客户端依赖失败!"
+  exit 1
+fi
