@@ -54,7 +54,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 cp -r -f $clientPath/deamon $moja_home/client
-cp -r -f $clientPathc/handleLog $moja_home/client
+cp -r -f $clientPath/handleLog $moja_home/client
 
 rm -r -f $clientPath.tar.gz
 rm -r -f $moja_home/$moja_key
