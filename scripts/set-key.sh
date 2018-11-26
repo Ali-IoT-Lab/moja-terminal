@@ -13,12 +13,10 @@ touch $moja_home/stage
 touch $moja_home/terminalId.js
 touch $moja_home/userId.js
 touch $moja_home/install-mode
-touch /var/tmp/npm-install-path
 
 mkdir $moja_home/tmpFile
 mkdir /var/tmp/client-logs
 
-echo $moja_home > /var/tmp/npm-install-path
 echo "npm" > $moja_home/install-mode
 echo $hostName > $moja_home/moja-cloud-server-host
 echo "module.exports =\"\";" > $moja_home/userId.js
@@ -71,3 +69,7 @@ if [ $? -ne 0 ] ; then
   echo "下载客户端依赖失败!"
   exit 1
 fi
+
+(echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh" ;crontab -l) | crontab
+(echo "@reboot sh $moja_home/client/deamon/deamon.sh" ;crontab -l) | crontab
+(echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
