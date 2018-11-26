@@ -13,7 +13,9 @@ touch $moja_home/stage
 touch $moja_home/terminalId.js
 touch $moja_home/userId.js
 touch $moja_home/install-mode
+mkdir $moja_home/tmpFile
 mkdir /var/tmp/client-logs
+
 
 echo "npm" > $moja_home/install-mode
 echo $hostName > $moja_home/moja-cloud-server-host
