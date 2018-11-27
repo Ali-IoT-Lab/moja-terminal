@@ -1,6 +1,6 @@
 #!/bin/bash
 
-moja_key=$1
+moja_key="$1.sh"
 mkdir ~/.moja
 touch ~/.moja_key
 moja_home=~/.moja
@@ -71,5 +71,5 @@ if [ $? -ne 0 ] ; then
 fi
 
 (echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh" ;crontab -l) | crontab
-(echo "@reboot sh $moja_home/client/deamon/deamon.sh" ;crontab -l) | crontab
 (echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
+(echo "@reboot sh $moja_home/client/deamon/deamon.sh" ;crontab -l) | crontab
