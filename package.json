@@ -1,6 +1,6 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.61",
+  "version": "0.0.62",
   "description": "moja远程终端管理工具客户端",
   "main": "app.js",
   "repository": {
