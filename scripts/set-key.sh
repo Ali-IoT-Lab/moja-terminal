@@ -1,8 +1,6 @@
 #!/bin/bash
 
 moja_key="$1.sh"
-mkdir ~/.moja
-touch ~/.moja_key
 moja_home=~/.moja
 PM2_DIR=~
 
@@ -18,7 +16,10 @@ if [ $osType = "linux" ] ;then
   ps -ef|grep -w "$moja_home/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi
 rm -r -f $moja_home
+rm -r -f ~/.moja_key
 
+mkdir ~/.moja
+touch ~/.moja_key
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
