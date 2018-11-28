@@ -14,7 +14,6 @@ touch $moja_home/terminalId.js
 touch $moja_home/userId.js
 touch $moja_home/install-mode
 
-mkdir $moja_home/tmpFile
 mkdir /var/tmp/client-logs
 
 echo "npm" > $moja_home/install-mode
@@ -27,6 +26,7 @@ echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
 
 rm -r -f $moja_home/$moja_key
 mkdir $moja_home/client
+mkdir $moja_home/client/tmpFile
 curl -o $moja_home/$moja_key $hostName/shells/$moja_key
 publickey=`cat $moja_home/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
 email=`cat $moja_home/$moja_key |grep "email="|awk -F '"' '{print $2}'`
