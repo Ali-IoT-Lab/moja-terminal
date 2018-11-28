@@ -4,7 +4,20 @@ moja_key="$1.sh"
 mkdir ~/.moja
 touch ~/.moja_key
 moja_home=~/.moja
+PM2_DIR=~
+
 hostName="http://47.97.210.118"
+osType=`uname -s|tr '[A-Z]' '[a-z]'`
+
+if [ $osType = "darwin" ] ;then
+  kill -9 $(ps -ef|grep "$PM2_DIR/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+  kill -9 $(ps -ef|grep "$moja_home/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+fi
+if [ $osType = "linux" ] ;then
+  ps -ef|grep -w "$PM2_DIR/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w "$moja_home/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+fi
+rm -r -f $moja_home
 
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
