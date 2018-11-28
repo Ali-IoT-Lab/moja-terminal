@@ -70,6 +70,7 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
+crontab -l | grep -v '.moja' |crontab -
 (echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
 (echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
 (echo "@reboot sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
