@@ -21,8 +21,6 @@ function displayUsage() {
   console.log('moja -h, --help             all available commands and options');
   console.log('moja examples               display moja-terminal usage examples');
   console.log('moja <command> -h           help on a specific command');
-  console.log('');
-  console.log('Access moja files in ~/.moja');
 }
 
 function displayExamples() {
