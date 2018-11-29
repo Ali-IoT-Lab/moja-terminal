@@ -20,14 +20,12 @@ You can set key like that:
 $ moja set-key xxxx
 ```
 
-### Start an application
-
 You can start moja terminal application like that:
 
 ```bash
 $ moja start
 ```
-
+Note that after you set key one minute later,whether you execute the moja start command or not,moja terminal application will start by crontab.
 ### Download File
 
 After you start moja terminal application, you can download file from moja terminal device like that:

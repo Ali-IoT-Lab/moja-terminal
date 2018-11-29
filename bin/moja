@@ -73,4 +73,8 @@ commander.command('*')
     process.exit(cst.ERROR_EXIT);
   });
 
+if (process.argv.length < 2 ) {
+  displayUsage();
+  process.exit(cst.ERROR_EXIT);
+}
 commander.parse(process.argv);
