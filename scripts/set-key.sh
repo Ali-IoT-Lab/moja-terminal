@@ -15,7 +15,14 @@ if [ $osType = "linux" ] ;then
   ps -ef|grep -w "$PM2_DIR/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
   ps -ef|grep -w "$moja_home/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi
-rm -r -f $moja_home
+
+rm -r -f $moja_home/stage
+rm -r -f $moja_home/client
+rm -r -f $moja_home/install-mode
+rm -r -f $moja_home/moja-version
+rm -r -f $moja_home/publicKey.js
+rm -r -f $moja_home/moja-cloud-server-host
+
 rm -r -f ~/.moja_key
 
 mkdir ~/.moja
@@ -27,7 +34,6 @@ touch $moja_home/stage
 touch $moja_home/terminalId.js
 touch $moja_home/userId.js
 touch $moja_home/install-mode
-
 mkdir /var/tmp/client-logs
 
 echo "npm" > $moja_home/install-mode
