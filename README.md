@@ -8,7 +8,7 @@ Moja-terminal is a command line management tool that can install, set key and st
 $ sudo npm install moja-terminal -g
 ```
 
-*npm is a builtin CLI when you install Node.js - [Installing Node.js with NVM](https://keymetrics.io/2015/02/03/installing-node-js-and-io-js-with-nvm/)*
+Note that you have to install node and npm globally.
 
 ### set key
 
