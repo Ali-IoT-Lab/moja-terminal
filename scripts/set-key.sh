@@ -7,7 +7,20 @@ PM2_DIR=~
 hostName="http://47.97.210.118"
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
 
+
+command_exists() {
+	command -v "$@" > /dev/null 2>&1
+}
+
 if [ $osType = "darwin" ] ;then
+  g++ -v
+  if [ $? -ne 0 ] ; then
+    if command_exists yum ; then
+      yum install gcc-c++ -y
+    else
+      apt-get install gcc-c++ -y
+    fi
+  fi
   kill -9 $(ps -ef|grep "$PM2_DIR/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
   kill -9 $(ps -ef|grep "$moja_home/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
 fi
