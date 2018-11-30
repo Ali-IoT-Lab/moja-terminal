@@ -28,6 +28,7 @@ if [ $osType = "linux" ] ;then
   ps -ef|grep -w "$moja_home/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi
 
+crontab -l | grep -v '.moja' |crontab -
 rm -r -f $moja_home/stage
 rm -r -f $moja_home/client
 rm -r -f $moja_home/install-mode
@@ -109,7 +110,6 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
-crontab -l | grep -v '.moja' |crontab -
 (echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
 (echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
 (echo "@reboot sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
