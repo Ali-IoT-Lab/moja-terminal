@@ -1,12 +1,17 @@
 #!/bin/bash
 
+
+if [ -n "$1" ] ;then
+  echo "invalid parameters!"
+  exit 1
+fi
+
 moja_key="$1.sh"
 moja_home=~/.moja
 PM2_DIR=~
 
 hostName="http://47.97.210.118"
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
-
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
