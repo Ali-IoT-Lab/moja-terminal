@@ -59,7 +59,12 @@ commander.command('start')
 commander.command('download')
   .description('download client file')
   .action(function(cmd, opts) {
-    operation.download(cmd)
+    if(typeof cmd == 'string') {
+      operation.download(cmd);
+    }else{
+      console.log("invalid parameters!")
+      process.exit(cst.ERROR_EXIT);
+    }
   });
 commander.command('examples')
   .description('display moja usage examples')

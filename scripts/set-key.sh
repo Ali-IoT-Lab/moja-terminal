@@ -1,11 +1,5 @@
 #!/bin/bash
 
-
-if [ ! -n "$1" ] ;then
-  echo "invalid parameters!"
-  exit 1
-fi
-
 moja_key="$1.sh"
 moja_home=~/.moja
 PM2_DIR=~
