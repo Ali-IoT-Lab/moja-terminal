@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+
+npm config set unsafe-perm
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
 }
@@ -12,3 +15,5 @@ if [ $? -ne 0 ] ; then
     apt-get install gcc-c++ -y
   fi
 fi
+
+npm config unset unsafe-perm
