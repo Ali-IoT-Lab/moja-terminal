@@ -43,7 +43,12 @@ commander.command('set-key')
   .description('set user key')
   .action(function(cmd, opts) {
     console.log('set user key ...');
-    operation.set_key(cmd)
+    if(typeof cmd == 'string') {
+      operation.set_key(cmd)
+    }else{
+      console.log("invalid parameters!")
+      process.exit(cst.ERROR_EXIT);
+    }
   });
 
 commander.command('start')
