@@ -44,17 +44,24 @@ touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
 touch $moja_home/stage
-touch $moja_home/terminalId.js
-touch $moja_home/userId.js
+
+
 touch $moja_home/install-mode
 mkdir /var/tmp/client-logs
 
 echo "npm" > $moja_home/install-mode
 echo $hostName > $moja_home/moja-cloud-server-host
-echo "module.exports =\"\";" > $moja_home/userId.js
-echo "module.exports =\"\";" > $moja_home/terminalId.js
 echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
 echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
+
+if [ ! -f "$moja_home/terminalId.js" ]; then
+  touch $moja_home/terminalId.js
+  echo "module.exports =\"\";" > $moja_home/terminalId.js
+fi
+if [ ! -f "$moja_home/userId.js" ]; then
+   touch $moja_home/userId.js
+   echo "module.exports =\"\";" > $moja_home/userId.js
+fi
 
 
 rm -r -f $moja_home/$moja_key
