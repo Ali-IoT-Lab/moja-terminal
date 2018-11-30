@@ -1,8 +1,11 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.69",
+  "version": "0.0.70",
   "description": "moja远程终端管理工具客户端",
   "main": "app.js",
+  "config": {
+    "unsafe-perm":true
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mountains-and-rivers/moja.git"
