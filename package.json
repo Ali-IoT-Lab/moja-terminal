@@ -12,6 +12,7 @@
     "moja": "./bin/moja"
   },
   "scripts": {
+    "preinstall": "bash scripts/preinstall.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
