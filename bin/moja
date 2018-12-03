@@ -50,12 +50,6 @@ commander.command('set-key')
       process.exit(cst.ERROR_EXIT);
     }
   });
-
-commander.command('start')
-  .description('start client app')
-  .action(function(cmd, opts) {
-    operation.start()
-  });
 commander.command('download')
   .description('download client file')
   .action(function(cmd, opts) {
@@ -65,6 +59,11 @@ commander.command('download')
       console.log("invalid parameters!")
       process.exit(cst.ERROR_EXIT);
     }
+  });
+commander.command('start')
+  .description('start client app')
+  .action(function(cmd, opts) {
+    operation.start()
   });
 commander.command('examples')
   .description('display moja usage examples')
