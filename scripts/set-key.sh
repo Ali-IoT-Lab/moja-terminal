@@ -107,7 +107,7 @@ fi
 
 (echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
 (echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
-(echo "@reboot pm2 start /home/pi/yanglao-client/app.js" ;crontab -l) | crontab
+(echo "@reboot sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
 
 
 
