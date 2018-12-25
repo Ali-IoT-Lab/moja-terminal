@@ -15,6 +15,7 @@ if [ $osType = "darwin" ] ;then
   kill -9 $(ps -ef|grep "$PM2_DIR/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
   kill -9 $(ps -ef|grep "$moja_home/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
 fi
+
 if [ $osType = "linux" ] ;then
   g++ -v
   if [ $? -ne 0 ] ; then
@@ -31,7 +32,6 @@ fi
 crontab -l | grep -v '.moja' |crontab -
 rm -r -f $moja_home/stage
 rm -r -f $moja_home/client
-rm -r -f $moja_home/install-mode
 rm -r -f $moja_home/moja-version
 rm -r -f $moja_home/publicKey.js
 rm -r -f $moja_home/moja-cloud-server-host
@@ -44,12 +44,8 @@ touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
 touch $moja_home/stage
-
-
-touch $moja_home/install-mode
 mkdir /var/tmp/client-logs
 
-echo "npm" > $moja_home/install-mode
 echo $hostName > $moja_home/moja-cloud-server-host
 echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
 echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
@@ -62,7 +58,6 @@ if [ ! -f "$moja_home/userId.js" ]; then
    touch $moja_home/userId.js
    echo "module.exports =\"\";" > $moja_home/userId.js
 fi
-
 
 rm -r -f $moja_home/$moja_key
 mkdir $moja_home/client
@@ -112,4 +107,7 @@ fi
 
 (echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
 (echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
-(echo "@reboot sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
+(echo "@reboot pm2 start /home/pi/yanglao-client/app.js" ;crontab -l) | crontab
+
+
+
