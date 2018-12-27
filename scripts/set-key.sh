@@ -1,12 +1,27 @@
 #!/bin/bash
 
 moja_key="$1.sh"
-moja_home=~/.moja
-PM2_DIR=~
-
+PM2_DIR=""
+HOME_DIR=""
+moja_home=""
 hostName="http://47.97.210.118"
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
 
+if [ $osType = "linux" ] ;then
+  HOME_DIR="home"
+elif [ $osType = "darwin" ] ;then
+  HOME_DIR="Users"
+else
+  exit 1
+fi
+
+if [ -f "/$HOME_DIR/moja/install-mode" ] ; then
+  PM2_DIR=/$HOME_DIR/moja
+  moja_home=/$HOME_DIR/moja/.moja
+else
+  moja_home=~/.moja
+  PM2_DIR=~
+fi
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
 }
@@ -35,7 +50,6 @@ rm -r -f $moja_home/client
 rm -r -f $moja_home/moja-version
 rm -r -f $moja_home/publicKey.js
 rm -r -f $moja_home/moja-cloud-server-host
-
 rm -r -f ~/.moja_key
 
 mkdir ~/.moja
