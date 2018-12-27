@@ -49,6 +49,7 @@ rm -r -f $moja_home/stage
 rm -r -f $moja_home/client
 rm -r -f $moja_home/moja-version
 rm -r -f $moja_home/publicKey.js
+rm -r -f $moja_home/pmtwo
 rm -r -f $moja_home/moja-cloud-server-host
 rm -r -f ~/.moja_key
 
