@@ -113,13 +113,9 @@ cd $moja_home/client/remote-terminal-client-v$clientVersion
 
 npm config set loglevel=http
 npm install --unsafe-perm=true --registry https://registry.cnpmjs.org
-
-if [ $? -ne 0 ] ; then
-  echo "下载客户端依赖失败!"
-  exit 1
-fi
-
 if [ ! -f "/$HOME_DIR/moja/install-mode" ] ; then
+  mkdir ~/.moja/pmtwo
+  npm install pm2 --unsafe-perm=true --prefix ~/.moja/pmtwo
   (echo "*/1 * * * * sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
   (echo "1 0 * * */1 sh $moja_home/client/handleLog/tarLog.sh" ;crontab -l) | crontab
   (echo "@reboot sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
