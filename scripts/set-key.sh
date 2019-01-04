@@ -67,21 +67,26 @@ clear_and_init_app_dir(){
   echo $hostName > $moja_home/moja-cloud-server-host
   echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
   echo "module.exports ={publicKey:\`$publicKey\`}" > $moja_home/publicKey.js
-
-  if [ ! -f "$moja_home/terminalId.js" ]; then
-    touch $moja_home/terminalId.js
-    echo "module.exports =\"\";" > $moja_home/terminalId.js
-  fi
-  if [ ! -f "$moja_home/userId.js" ]; then
-     touch $moja_home/userId.js
-     echo "module.exports =\"\";" > $moja_home/userId.js
-  fi
-
+ if [ -f "/$HOME_DIR/terminalId.js" ]; then
+    mv /$HOME_DIR/terminalId.js $moja_home
+ else
+   if [ ! -f "$moja_home/terminalId.js" ]; then
+     touch $moja_home/terminalId.js
+     echo "module.exports =\"\";" > $moja_home/terminalId.js
+   fi
+ fi
+ if [ -f "/$HOME_DIR/userId.js" ]; then
+    mv /$HOME_DIR/userId.js $moja_home
+ else
+    if [ ! -f "$moja_home/userId.js" ]; then
+       touch $moja_home/userId.js
+       echo "module.exports =\"\";" > $moja_home/userId.js
+    fi
+ fi
   rm -r -f $moja_home/$moja_key
   mkdir $moja_home/client
   mkdir $moja_home/client/tmpFile
 }
-
 
 #安装应用
 install_app(){
@@ -132,7 +137,6 @@ add_crontab_list(){
     (echo "@reboot sh $moja_home/client/deamon/deamon.sh $PATH" ;crontab -l) | crontab
   fi
 }
-
 
 init_install_dir
 kill_process
