@@ -55,9 +55,9 @@ clear_and_init_app_dir(){
   rm -r -f $moja_home/publicKey.js
   rm -r -f $moja_home/pmtwo
   rm -r -f $moja_home/moja-cloud-server-host
-  rm -r -f ~/.moja_key
-  mkdir ~/.moja
-  touch ~/.moja_key
+  rm -r -f $PM2_DIR/.moja_key
+  mkdir $moja_home
+  touch $PM2_DIR/.moja_key
   touch $moja_home/publicKey.js
   touch $moja_home/email.js
   touch $moja_home/moja-cloud-server-host
