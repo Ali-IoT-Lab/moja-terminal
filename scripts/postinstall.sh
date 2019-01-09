@@ -3,7 +3,7 @@
 if ! moja
 then
   echo "turiueriuwteiutwiuetiuwqi"
-  mojaPAth=`find / -name moja-terminal  -type d`
+  mojaPAth=`sudo find / -name moja-terminal  -type d`
   echo $mojaPAth
-  ln -s mojaPAth/bin/moja
+  sudo ln -s mojaPAth/bin/moja
 fi
