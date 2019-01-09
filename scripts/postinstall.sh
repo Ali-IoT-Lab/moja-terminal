@@ -3,5 +3,7 @@
 if ! moja
 then
   echo "turiueriuwteiutwiuetiuwqi"
-  export PATH=$PATH
+  mojaPAth=`find / -name moja-terminal  -type d`
+  echo $mojaPAth
+  ln -s mojaPAth/bin/moja
 fi
