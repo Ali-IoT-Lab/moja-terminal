@@ -1,11 +1,8 @@
 #!/bin/bash
 
-modulePath=`npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
 
-echo '12345678909876543234567'
-echo $modulePath
+modulePath=`npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
 moja
-if [ $? ] ; then
-  mojaPath= "$modulePath/moja-terminal/bin"
-  echo "请手动执行======>>>>>：sudo ln -s $mojaPath/moja /usr/bin/moja"
+if [ $? -ne 0 ] ; then
+  echo "请手动执行======>>>>>：sudo ln -s $modulePath/moja-terminal/bin/moja /usr/bin/moja"
 fi
