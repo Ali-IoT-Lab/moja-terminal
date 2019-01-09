@@ -2,5 +2,6 @@
 
 if ! moja
 then
-  echo "请手动添加moja命令至全局"
+  echo "turiueriuwteiutwiuetiuwqi"
+  export PATH=$PATH
 fi
