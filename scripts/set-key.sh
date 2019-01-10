@@ -121,10 +121,8 @@ install_app(){
   mv $moja_home/client/remote-terminal-client-v$clientVersion/start.js $moja_home/client
   cd $moja_home/client/remote-terminal-client-v$clientVersion
 
-  npm config set loglevel=http --userconfig=~/.npmrc
-  npm config set registry=https://registry.cnpmjs.org --userconfig=~/.npmrc
-
-  npm install --unsafe-perm=true
+  npm config set loglevel=http
+  npm install --unsafe-perm=true --registry=https://registry.cnpmjs.org
 }
 
 add_crontab_list(){
