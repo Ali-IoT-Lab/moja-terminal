@@ -15,6 +15,11 @@ else
   exit 1
 fi
 
+#判断命令是否存在
+command_exists() {
+	command -v "$@" > /dev/null 2>&1
+}
+
 #初始化安装目录
 init_install_dir(){
   if [ -f "/$HOME_DIR/moja/install-mode" ] ; then
