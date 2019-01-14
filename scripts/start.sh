@@ -4,6 +4,7 @@ clientVersion=''
 publickey=''
 email=''
 moja_home=~/.moja
+hostName="http://47.97.210.118"
 #第一步 根据KEY获取配置文件publicKey terminalId userId  读取key内容
 moja_key=`cat ~/.moja_key|tr -d '\n'`
 curl -o ~/$moja_key $hostName/shells/$moja_key
