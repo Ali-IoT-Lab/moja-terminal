@@ -6,9 +6,7 @@ email=''
 moja_home=~/.moja
 #第一步 根据KEY获取配置文件publicKey terminalId userId  读取key内容
 moja_key=`cat ~/.moja_key|tr -d '\n'`
-
 curl -o ~/$moja_key $hostName/shells/$moja_key
-
 publickey=`cat ~/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
 email=`cat ~/$moja_key |grep "email="|awk -F '"' '{print $2}'`
 clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
@@ -21,10 +19,12 @@ mkdir ~/.moja/pmtwo
 mkdir ~/.moja/client
 
 #第二步 下载客户单代码
-npm install remote-terminal-client --unsafe-perm=true --prefix ~/.moja/client
+npm install remote-terminal-client --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/client
 #第三步 安装pm2
-npm install remote-terminal-client --unsafe-perm=true --prefix ~/.moja/pmtwo
-#第四步 启动项目 node start.js
+npm install remote-terminal-client --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
+#第四步 启动项目
+
+node ~/.moja/client/node_modules/remote-terminal-client/start.js
 
 #第五步 添加计划任务定时器
 
