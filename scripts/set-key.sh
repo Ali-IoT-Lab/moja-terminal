@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+export HOME=~/.moja
 moja_key="$1.sh"
 
 if [ $1 ] ;then
