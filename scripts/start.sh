@@ -4,7 +4,7 @@ clientVersion=''
 publickey=''
 email=''
 moja_home=~/.moja
-pm2Process=~/
+pm2Process=~
 hostName="http://47.97.210.118"
 
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
@@ -28,12 +28,12 @@ clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
 if [ $osType = "darwin" ] ;then
   kill -9 $(ps -ef|grep "$pm2Process/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
-  kill -9 $(ps -ef|grep "$pm2Process/.moja/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+  kill -9 $(ps -ef|grep "$moja_home/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
 fi
 
 if [ $osType = "linux" ] ;then
-  ps -ef|grep -w "pm2Process/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
-  ps -ef|grep -w "pm2Process/.moja/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w "$pm2Process/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w "$moja_home/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi
 
 mkdir ~/mojaId
