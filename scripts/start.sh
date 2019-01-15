@@ -22,7 +22,8 @@ publickey=`cat ~/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
 email=`cat ~/$moja_key |grep "email="|awk -F '"' '{print $2}'`
 clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
-mkdir -p client/v$clientVersion
+mkdir -p $moja_home
+mkdir -p ~/.moja/client/v$clientVersion
 #清除目录
 
 if [ $osType = "darwin" ] ;then
@@ -45,7 +46,6 @@ fi
 
 rm -r -f ~/.moja
 rm -r -f /var/tmp/client-logs
-mkdir -p $moja_home
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
