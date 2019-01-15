@@ -4,6 +4,7 @@ clientVersion=''
 publickey=''
 email=''
 moja_home=~/.moja
+pm2Process=~/
 hostName="http://47.97.210.118"
 
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
@@ -26,21 +27,21 @@ clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 #清除目录
 
 if [ $osType = "darwin" ] ;then
-  kill -9 $(ps -ef|grep "~/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
-  kill -9 $(ps -ef|grep "~/.moja/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+  kill -9 $(ps -ef|grep "$pm2Process/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+  kill -9 $(ps -ef|grep "$pm2Process/.moja/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
 fi
 
 if [ $osType = "linux" ] ;then
-  ps -ef|grep -w "~/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
-  ps -ef|grep -w "~/.moja/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w "pm2Process/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w "pm2Process/.moja/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi
 
 mkdir ~/mojaId
 if [ -f "$moja_home/terminalId.js" ]; then
-  cp -r -f $moja_home/terminalId.js ~/mojaId
+  cp -r -f $moja_home/terminalId.js ~/mojaId/terminalId.js
 fi
 if [ -f "$moja_home/userId.js" ]; then
-  cp -r -f $moja_home/userId.js ~/mojaId
+  cp -r -f $moja_home/userId.js ~/mojaId/userId.js
 fi
 
 rm -r -f ~/.moja
