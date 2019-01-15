@@ -46,15 +46,13 @@ fi
 rm -r -f ~/.moja
 rm -r -f /var/tmp/client-logs
 mkdir -p ~/.moja/client/v$clientVersion
+mkdir ~/.moja/pmtwo
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
 touch $moja_home/stage
 touch $moja_home/moja-version
 mkdir /var/tmp/client-logs
-
-mkdir ~/.moja/pmtwo
-mkdir ~/.moja/client
 
 echo $clientVersion > $moja_home/moja-version
 echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/publicKey.js
@@ -82,5 +80,5 @@ npm install remote-terminal-client-test --unsafe-perm=true --registry=https://re
 #第三步 安装pm2
 npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 #第四步 启动项目
-node ~/.moja/client-v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
+node ~/.moja/client/v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
 #第五步 添加计划任务定时器
