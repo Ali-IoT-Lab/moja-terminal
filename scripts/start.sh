@@ -14,7 +14,7 @@ clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
 #清除目录
 rm -r -f ~/.moja
-
+rm -r -f /var/tmp/client-logs
 mkdir -p $moja_home
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
@@ -22,6 +22,7 @@ touch $moja_home/moja-cloud-server-host
 touch $moja_home/stage
 touch $moja_home/moja-version
 mkdir /var/tmp/client-logs
+
 mkdir ~/.moja/pmtwo
 mkdir ~/.moja/client
 
@@ -45,8 +46,8 @@ npm install remote-terminal-client-test --unsafe-perm=true --registry=https://re
 npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 #第四步 启动项目
 
-node ~/.moja/client/node_modules/remote-terminal-client-test/start.js $clientVersion
-
+#node ~/.moja/client/node_modules/remote-terminal-client-test/start.js $clientVersion
+~/.moja/pmtwo/node_modules/pm2/bin/pm2 start ~/.moja/client/node_modules/remote-terminal-client-test/app.js --log-type json --merge-logs --log-date-format="YYYY-MM-DD HH:mm:ss Z" -o /var/tmp/client-logs/out.log -e /var/tmp/client-logs/err.log --name client-v$clientVersion
 #第五步 添加计划任务定时器
 
 
