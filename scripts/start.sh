@@ -27,12 +27,12 @@ mkdir ~/.moja/pmtwo
 mkdir ~/.moja/client
 
 #第二步 下载客户单代码
-npm install remote-terminal-client --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/client
+npm install remote-terminal-client-test --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/client
 #第三步 安装pm2
-npm install remote-terminal-client --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
+npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 #第四步 启动项目
 
-node ~/.moja/client/node_modules/remote-terminal-client/start.js
+node ~/.moja/client/node_modules/remote-terminal-client-test/start.js $clientVersion
 
 #第五步 添加计划任务定时器
 
