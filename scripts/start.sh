@@ -45,11 +45,7 @@ npm install remote-terminal-client-test --unsafe-perm=true --registry=https://re
 #第三步 安装pm2
 npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 #第四步 启动项目
-sleep 3
-#node ~/.moja/client/node_modules/remote-terminal-client-test/start.js $clientVersion
-~/.moja/pmtwo/node_modules/pm2/bin/pm2 start ~/.moja/client/node_modules/remote-terminal-client-test/app.js --log-type json --merge-logs --log-date-format="YYYY-MM-DD HH:mm:ss Z" -o /var/tmp/client-logs/out.log -e /var/tmp/client-logs/err.log --name client-v$clientVersion
-
-
+node ~/.moja/client/node_modules/remote-terminal-client-test/start.js $clientVersion
 
 #第五步 添加计划任务定时器
 
