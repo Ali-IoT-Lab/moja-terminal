@@ -12,6 +12,13 @@ publickey=`cat ~/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
 email=`cat ~/$moja_key |grep "email="|awk -F '"' '{print $2}'`
 clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
+touch -p $moja_home/publicKey.js
+touch $moja_home/email.js
+touch $moja_home/moja-cloud-server-host
+touch $moja_home/stage
+touch $moja_home/moja-version
+mkdir /var/tmp/client-logs
+
 echo $clientVersion > $moja_home/moja-version
 echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/publicKey.js
 echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
