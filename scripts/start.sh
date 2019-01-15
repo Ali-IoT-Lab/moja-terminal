@@ -4,7 +4,7 @@ clientVersion=''
 publickey=''
 email=''
 moja_home=~/.moja
-pm2Process=~
+HOME_DIR=~
 hostName="http://47.97.210.118"
 
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
@@ -27,12 +27,12 @@ clientVersion=`cat ~/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 #清除目录
 
 if [ $osType = "darwin" ] ;then
-  kill -9 $(ps -ef|grep "$pm2Process/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
+  kill -9 $(ps -ef|grep "$HOME_DIR/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
   kill -9 $(ps -ef|grep "$moja_home/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
 fi
 
 if [ $osType = "linux" ] ;then
-  ps -ef|grep -w "$pm2Process/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
+  ps -ef|grep -w "$HOME_DIR/.pm2"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
   ps -ef|grep -w "$moja_home/client"|grep -v grep|cut -c 9-15|xargs kill -9 >/dev/null 2>&1
 fi
 
@@ -59,15 +59,15 @@ echo $clientVersion > $moja_home/moja-version
 echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/publicKey.js
 echo "module.exports ={email:\`$email\`}" > $moja_home/email.js
 
-if [ -f "~/mojaId/terminalId.js" ]; then
-  cp ~/mojaId/terminalId.js $moja_home/terminalId.js
+if [ -f "$HOME_DIR/mojaId/terminalId.js" ]; then
+  mv ~/mojaId/terminalId.js $moja_home/terminalId.js
 else
   touch $moja_home/terminalId.js
   echo "module.exports =\"\";" > $moja_home/terminalId.js
 fi
 
-if [ -f "~/mojaId/userId.js" ]; then
-  cp ~/mojaId/userId.js $moja_home/userId.js
+if [ -f "$HOME_DIR/mojaId/userId.js" ]; then
+  mv ~/mojaId/userId.js $moja_home/userId.js
 else
   touch $moja_home/userId.js
   echo "module.exports =\"\";" > $moja_home/userId.js
