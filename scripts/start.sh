@@ -76,6 +76,7 @@ fi
 rm -r -f ~/mojaId
 
 #第二步 下载客户单代码
+export HOME=$moja_home
 npm config set loglevel=http
 npm install remote-terminal-client-test --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/client/v$clientVersion
 #第三步 安装pm2
