@@ -75,9 +75,14 @@ npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --pref
 node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
 #第五步 添加计划任务定时器
 
-mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/deamon $moja_home/
-mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/handleLog $moja_home/
 
-(echo "*/1 * * * * sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
-(echo "1 0 * * */1 sh $moja_home/handleLog/tarLog.sh" ;crontab -l) | crontab
-(echo "@reboot sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
+mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/deamon $moja_home
+mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/handleLog $moja_home
+
+
+if [ ! -f "/$currHOME/moja/install-mode" ] ; then
+  (echo "*/1 * * * * sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
+  (echo "1 0 * * */1 sh $moja_home/handleLog/tarLog.sh" ;crontab -l) | crontab
+  (echo "@reboot sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
+fi
+
