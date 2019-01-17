@@ -7,8 +7,16 @@ moja_home=~/.moja
 currHOME=~
 hostName="http://47.97.210.118"
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
-mkdir $moja_home
+osType=`uname -s|tr '[A-Z]' '[a-z]'`
+if [ $osType = "linux" ] ;then
+  curlHOME='/home/moja'
+elif [ $osType = "darwin" ] ;then
+  curlHOME='/Users/moja'
+else
+  exit 1
+fi
 
+mkdir $moja_home
 #第一步 根据KEY获取配置文件publicKey terminalId userId  读取key内容
 moja_key=`cat $currHOME/.moja_key|tr -d '\n'`
 curl -o $moja_home/$moja_key $hostName/shells/$moja_key
@@ -79,8 +87,7 @@ node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/
 mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/deamon $moja_home
 mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/handleLog $moja_home
 
-
-if [ ! -f "/$currHOME/moja/install-mode" ] ; then
+if [ ! -f "$curlHOME/install-mode" ] ; then
   (echo "*/1 * * * * sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
   (echo "1 0 * * */1 sh $moja_home/handleLog/tarLog.sh" ;crontab -l) | crontab
   (echo "@reboot sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
