@@ -7,7 +7,8 @@ moja_home=~/.moja
 currHOME=~
 hostName="http://47.97.210.118"
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
-mkdir ~/.moja
+mkdir $moja_home
+
 #第一步 根据KEY获取配置文件publicKey terminalId userId  读取key内容
 moja_key=`cat $currHOME/.moja_key|tr -d '\n'`
 curl -o $moja_home/$moja_key $hostName/shells/$moja_key
@@ -15,9 +16,7 @@ publickey=`cat $moja_home/$moja_key |grep "publicKey="|awk -F '"' '{print $2}'`
 email=`cat $moja_home/$moja_key |grep "email="|awk -F '"' '{print $2}'`
 clientVersion=`cat $moja_home/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
-
-#清除目录
-
+#kill进程
 if [ $osType = "darwin" ] ;then
   kill -9 $(ps -ef|grep "$currHOME/.pm2"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
   kill -9 $(ps -ef|grep "$moja_home/client"|awk '$0 !~/grep/ {print $2}'|tr -s '\n' ' ') >/dev/null 2>&1
@@ -35,11 +34,12 @@ fi
 if [ -f "$moja_home/userId.js" ]; then
   cp -r -f $moja_home/userId.js ~/mojaId/userId.js
 fi
-
-rm -r -f ~/.moja
+#清除目录
+rm -r -f $moja_home
 rm -r -f /var/tmp/client-logs
-mkdir -p ~/.moja/client/v$clientVersion
-mkdir ~/.moja/pmtwo
+mkdir -p $moja_home/client/v$clientVersion
+mkdir $moja_home/pmtwo
+mkdir $moja_home/tmpFile
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
@@ -69,9 +69,9 @@ rm -r -f ~/mojaId
 
 #第二步 下载客户单代码
 npm config set loglevel=http
-npm install remote-terminal-client-test --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/client/v$clientVersion
+npm install remote-terminal-client-test --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home/client/v$clientVersion
 #第三步 安装pm2
 npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 #第四步 启动项目
-node ~/.moja/client/v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
+node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
 #第五步 添加计划任务定时器
