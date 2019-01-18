@@ -16,7 +16,7 @@ else
   exit 1
 fi
 
-mkdir $moja_home
+mkdir ~/.moja
 #第一步 根据KEY获取配置文件publicKey terminalId userId  读取key内容
 moja_key=`cat $currHOME/.moja_key|tr -d '\n'`
 curl -o $moja_home/$moja_key $hostName/shells/$moja_key
@@ -83,7 +83,6 @@ npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --pref
 node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
 #第五步 添加计划任务定时器
 
-
 mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/deamon $moja_home
 mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/handleLog $moja_home
 
@@ -92,4 +91,6 @@ if [ ! -f "$curlHOME/install-mode" ] ; then
   (echo "1 0 * * */1 sh $moja_home/handleLog/tarLog.sh" ;crontab -l) | crontab
   (echo "@reboot sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
 fi
+
+
 
