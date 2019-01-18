@@ -1,6 +1,6 @@
 #!/bin/bash
 
-findNpm="npm |grep npm@| awk -F \' \' \'{print $2}\'|awk -F \'/npm\' \'{print $1}\'"
+findNpm="npm |grep npm@| awk -F ' ' '{print \$2}'|awk -F '/npm' '{print \$1}'"
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
 }
