@@ -4,7 +4,7 @@ clientVersion=''
 publickey=''
 email=''
 moja_home=~/.moja
-currHOME=""
+currHOME=~
 hostName="http://47.97.210.118"
 
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
@@ -29,7 +29,7 @@ fi
 moja_key=`cat $currHOME/.moja_key|tr -d '\n'`
 
 #判断用户key是否为空
-if [ "$moja_key" ]; then
+if [ -z "$moja_key" ]; then
   echo "请设置用户key！"
   exit 1
 fi
@@ -112,6 +112,7 @@ node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/
 
 #判断安装方式是否为curl 链接安装， 添加计划任务定时器
 if [ ! -f "$curlHOME/install-mode" ] ; then
+  crontab -l | grep -v '.moja' |crontab -
   (echo "*/1 * * * * sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
   (echo "1 0 * * */1 sh $moja_home/handleLog/tarLog.sh" ;crontab -l) | crontab
   (echo "@reboot sh $moja_home/deamon/deamon.sh $PATH" ;crontab -l) | crontab
