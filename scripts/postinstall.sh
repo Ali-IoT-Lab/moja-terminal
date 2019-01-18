@@ -1,10 +1,6 @@
 #!/bin/bash
 
-
-echo "111111111111111111"
-echo $PATH
-
-modulePath=`npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
+modulePath=`env PATH=$PATH npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
