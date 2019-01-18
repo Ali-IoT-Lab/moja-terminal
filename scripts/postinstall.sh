@@ -1,20 +1,5 @@
 #!/bin/bash
 
 
-
-
-
-
 echo "12312h3oh123h" >> /etc/profile
 
-echo "11111111111111111111111111111"
-
-modulePath=`env PATH=$PATH npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
-
-command_exists() {
-	command -v "$@" > /dev/null 2>&1
-}
-
-if ! command_exists moja ; then
-  echo -e "\033[31m 请手动执行：sudo ln -s $modulePath/moja-terminal/bin/moja /usr/bin/moja \033[0m"
-fi
