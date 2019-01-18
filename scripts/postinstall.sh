@@ -2,7 +2,7 @@
 
 
 
-export PATH=$1
+#export PATH=$1
 
 modulePath=`npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
 
