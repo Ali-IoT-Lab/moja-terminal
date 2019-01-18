@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+
+
+node -v
+
+
+echo "11111111111111111111111111111"
+
 modulePath=`env PATH=$PATH npm |grep npm@| awk -F ' ' '{print $2}'|awk -F '/npm' '{print $1}'`
 
 command_exists() {
