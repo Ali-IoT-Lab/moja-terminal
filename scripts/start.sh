@@ -7,9 +7,7 @@ moja_home=~/.moja
 currHOME=~
 
 basepath=$(cd `dirname $0`; pwd)
-source $basepath/config
-
-hostName=`echo $mojaHostName`
+hostName=`sed '/^mojaHostName=/!d;s/.*=//' $basepath/config`
 
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
 if [ $osType = "linux" ] ;then
