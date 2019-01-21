@@ -98,17 +98,17 @@ rm -r -f ~/mojaId
 
 #下载客户端代码
 npm config set loglevel=http
-npm install remote-terminal-client-test --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home/client/v$clientVersion
+npm install remote-terminal-client --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home/client/v$clientVersion
 
 #安装pm2
 npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 
 #将定时任务脚本移动到公共目录
-mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/deamon $moja_home
-mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/handleLog $moja_home
+mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/deamon $moja_home
+mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/handleLog $moja_home
 
 #启动项目
-node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client-test/start.js $clientVersion
+node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/start.js $clientVersion
 
 #判断安装方式是否为curl 链接安装， 添加计划任务定时器
 if [ ! -f "$curlHOME/install-mode" ] ; then
