@@ -5,7 +5,11 @@ publickey=''
 email=''
 moja_home=~/.moja
 currHOME=~
-hostName="http://47.97.210.118"
+
+basepath=$(cd `dirname $0`; pwd)
+source $basepath/config
+
+hostName=`echo $mojaHostName`
 
 osType=`uname -s|tr '[A-Z]' '[a-z]'`
 if [ $osType = "linux" ] ;then
@@ -65,6 +69,7 @@ fi
 if [ -f "$moja_home/userId.js" ]; then
   cp -r -f $moja_home/userId.js ~/mojaId/userId.js
 fi
+
 #清除目录 并初始化安装目录和文件
 rm -r -f $moja_home
 rm -r -f /var/tmp/client-logs
