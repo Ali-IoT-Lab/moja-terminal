@@ -107,6 +107,8 @@ npm install remote-terminal-client --unsafe-perm=true --registry=https://registr
 npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
 
 #将定时任务脚本移动到公共目录
+rm -r -f $moja_home/deamon
+rm -r -f $moja_home/handleLog
 mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/deamon $moja_home
 mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/handleLog $moja_home
 
