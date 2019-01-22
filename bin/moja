@@ -42,7 +42,6 @@ function displayExamples() {
 commander.command('set-key')
   .description('set user key')
   .action(function(cmd, opts) {
-    console.log('set user key ...');
     if(typeof cmd == 'string') {
       operation.set_key(cmd)
     }else{
