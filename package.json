@@ -6,8 +6,21 @@
   "directories": {
     "lib": "lib"
   },
+  "bin": {
+    "moja": "./bin/moja"
+  },
   "scripts": {
+    "postinstall": "bash scripts/postinstall.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "lodash": "^4.17.11",
+    "js-base64": "^2.4.9",
+    "debug": "^3.1",
+    "request": "^2.88.0",
+    "single-line-log": "^1.1.2"
   },
   "repository": {
     "type": "git",
