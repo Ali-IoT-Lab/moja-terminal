@@ -1,41 +1,22 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.185",
-  "description": "moja远程终端管理工具客户端",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Mountains-and-rivers/moja.git"
-  },
-  "author": "Mountains-and-rivers",
-  "bin": {
-    "moja": "./bin/moja"
-  },
-  "scripts": {
-    "postinstall": "bash scripts/postinstall.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "chalk": "^2.4.1",
-    "commander": "^2.19.0",
-    "lodash": "^4.17.11",
-    "js-base64": "^2.4.9",
-    "debug": "^3.1",
-    "request": "^2.88.0",
-    "single-line-log": "^1.1.2"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Mountains-and-rivers/moja/issues"
-  },
-  "homepage": "https://github.com/Mountains-and-rivers/moja#readme",
+  "version": "0.0.186",
+  "description": "Moja-terminal is a command line management tool that can install, set key and start moja terminal application.",
+  "main": "index.js",
   "directories": {
     "lib": "lib"
   },
-  "keywords": [
-    "moja"
-  ],
-  "devDependencies": {
-    "nodemon": "^1.8.1"
-  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ali-IoT-Lab/moja-terminal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ali-IoT-Lab/moja-terminal/issues"
+  },
+  "homepage": "https://github.com/Ali-IoT-Lab/moja-terminal#readme"
 }
