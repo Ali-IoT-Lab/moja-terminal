@@ -1,6 +1,6 @@
 {
   "name": "moja-terminal",
-  "version": "0.0.186",
+  "version": "0.0.188",
   "description": "Moja-terminal is a command line management tool that can install, set key and start moja terminal application.",
   "main": "index.js",
   "directories": {

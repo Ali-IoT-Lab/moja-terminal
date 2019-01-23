@@ -19,7 +19,10 @@ else
 fi
 
 #创建安装公共目录
-mkdir ~/.moja
+
+if [ ! -d "$moja_home" ]; then
+  mkdir ~/.moja
+fi
 
 #判断用户key 文件是否存在
 if [ ! -f "$currHOME/.moja_key" ]; then
