@@ -26,7 +26,11 @@ function displayUsage() {
 function displayExamples() {
   console.log('- Start and add a process to the moja process list:')
   console.log('');
+  console.log(chalk.cyan('  $ moja init '));
+  console.log('');
   console.log(chalk.cyan('  $ moja start '));
+  console.log('');
+  console.log(chalk.cyan('  $ moja stop '));
   console.log('');
   console.log('- Set the user key:');
   console.log('');
@@ -39,6 +43,11 @@ function displayExamples() {
   console.log('Check the full documentation on https://github.com/Ali-IoT-Lab/moja-terminal');
   console.log('');
 }
+commander.command('init')
+  .description('init client app')
+  .action(function(cmd, opts) {
+    operation.init()
+  });
 commander.command('set-key')
   .description('set user key')
   .action(function(cmd, opts) {
@@ -63,6 +72,11 @@ commander.command('start')
   .description('start client app')
   .action(function(cmd, opts) {
     operation.start()
+  });
+commander.command('stop')
+  .description('stop client app')
+  .action(function(cmd, opts) {
+    operation.stop()
   });
 commander.command('examples')
   .description('display moja usage examples')
