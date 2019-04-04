@@ -104,9 +104,10 @@ rm -r -f ~/mojaId
 
 #下载客户端代码
 npm config set loglevel=http
-npm install https://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home/client/v$clientVersion
+npm install https://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
 #安装pm2
-npm install pm2 --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix ~/.moja/pmtwo
+
+mv $moja_home/node_mudules/remote-terminal-client client/v$clientVersion/
 
 #将定时任务脚本移动到公共目录
 rm -r -f $moja_home/deamon
