@@ -109,6 +109,8 @@ npm config set loglevel=http
 #npm install git://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
 npm install git+https://Mountains-and-rivers@github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
 
+
+
 #安装pm2
 
 mv $moja_home/node_mudules/remote-terminal-client client/v$clientVersion/
