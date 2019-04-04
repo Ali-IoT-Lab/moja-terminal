@@ -108,7 +108,7 @@ npm install https://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --
 
 #安装pm2
 
-mv $moja_home/node_modules/remote-terminal-client client/v$clientVersion/
+mv $moja_home/node_modules/remote-terminal-client $moja_home/client/v$clientVersion/
 
 #将定时任务脚本移动到公共目录
 rm -r -f $moja_home/deamon
