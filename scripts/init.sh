@@ -104,7 +104,7 @@ rm -r -f ~/mojaId
 
 #下载客户端代码
 npm config set loglevel=http
-npm install https://github.com/Mountains-and-rivers/remote-terminal-client.git --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
+npm install https://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
 
 #安装pm2
 
