@@ -113,8 +113,8 @@ mv $moja_home/node_mudules/remote-terminal-client client/v$clientVersion/
 #将定时任务脚本移动到公共目录
 rm -r -f $moja_home/deamon
 rm -r -f $moja_home/handleLog
-mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/deamon $moja_home
-mv $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/handleLog $moja_home
+mv $moja_home/client/v$clientVersion/remote-terminal-client/deamon $moja_home
+mv $moja_home/client/v$clientVersion/remote-terminal-client/handleLog $moja_home
 
 #判断安装方式是否为curl 链接安装， 添加计划任务定时器
 if [ ! -f "$curlHOME/install-mode" ] ; then
