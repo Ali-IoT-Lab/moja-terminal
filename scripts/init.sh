@@ -106,7 +106,8 @@ rm -r -f ~/mojaId
 npm config set loglevel=http
 # npm install git+https://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
 #npm install git+https://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
-npm install git://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
+#npm install git://github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
+npm install git+https://Mountains-and-rivers@github.com/Ali-IoT-Lab/remote-terminal-client.git#develop --unsafe-perm=true --registry=https://registry.cnpmjs.org --prefix $moja_home
 
 #安装pm2
 
