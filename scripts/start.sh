@@ -25,6 +25,12 @@ if [ -z "$moja_key" ]; then
   exit 1
 fi
 
+echo "-----------------------------------"
+
+echo "$moja_home/$moja_key"
+echo "$hostName/shells/$moja_key"
+
+
 #根据脚本名下载脚本
 curl -o $moja_home/$moja_key $hostName/shells/$moja_key
 
@@ -32,6 +38,6 @@ curl -o $moja_home/$moja_key $hostName/shells/$moja_key
 clientVersion=`cat $moja_home/$moja_key |grep "clientVersion="|awk -F '"' '{print $2}'`
 
 #启动项目
-node $moja_home/client/v$clientVersion/node_modules/remote-terminal-client/start.js $clientVersion
+node $moja_home/client/v$clientVersion/remote-terminal-client/start.js $clientVersion
 
 
