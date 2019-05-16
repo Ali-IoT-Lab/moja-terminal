@@ -85,21 +85,21 @@ touch $moja_home/mojaConfig/moja-version
 mkdir /var/tmp/client-logs
 echo $clientVersion > $moja_home/mojaConfig/moja-version
 
-echo "{\n\t\"publicKey\":\"$publickey\"\n}\n" > $moja_home/mojaConfig/publicKey.json
-echo "{\n\t\"email\":\"$email\"\n}\n" > $moja_home/mojaConfig/email.json
+echo "{\"publicKey\":\"$publickey\"}" > $moja_home/mojaConfig/publicKey.json
+echo "{\"email\":\"$email\"}" > $moja_home/mojaConfig/email.json
 
 if [ -f "$currHOME/mojaId/terminalId.js" ]; then
   mv ~/mojaId/terminalId.js $moja_home/mojaConfig/terminalId.js
 else
   touch $moja_home/mojaConfig/terminalId.json
-  echo "{\n\t\"terminalId\":\"\"\n}\n" > $moja_home/mojaConfig/terminalId.json
+  echo "{\"terminalId\":\"\"}" > $moja_home/mojaConfig/terminalId.json
 fi
 
 if [ -f "$currHOME/mojaId/userId.js" ]; then
   mv ~/mojaId/userId.js $moja_home/mojaConfig/userId.js
 else
   touch $moja_home/mojaConfig/userId.json
-  echo "{\n\t\"userId\":\"\"\n}\n" > $moja_home/mojaConfig/userId.json
+  echo "{\"userId\":\"\"}" > $moja_home/mojaConfig/userId.json
 fi
 rm -r -f ~/mojaId
 
