@@ -80,10 +80,10 @@ mkdir $moja_home/mojaConfig
 touch $moja_home/mojaConfig/publicKey.js
 touch $moja_home/mojaConfig/email.js
 touch $moja_home/moja-cloud-server-host
-touch $moja_home/stage
-touch $moja_home/moja-version
+touch $moja_home/mojaConfig/stage
+touch $moja_home/mojaConfig/moja-version
 mkdir /var/tmp/client-logs
-echo $clientVersion > $moja_home/moja-version
+echo $clientVersion > $moja_home/mojaConfig/moja-version
 echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/mojaConfig/publicKey.js
 echo "module.exports ={email:\`$email\`}" > $moja_home/mojaConfig/email.js
 
