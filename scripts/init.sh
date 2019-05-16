@@ -76,6 +76,7 @@ rm -r -f $moja_home
 rm -r -f /var/tmp/client-logs
 mkdir -p $moja_home/client/v$clientVersion
 mkdir $moja_home/tmpFile
+mkdir $moja_home/idConfig
 touch $moja_home/publicKey.js
 touch $moja_home/email.js
 touch $moja_home/moja-cloud-server-host
