@@ -75,7 +75,6 @@ fi
 rm -r -f $moja_home
 rm -r -f /var/tmp/client-logs
 mkdir -p $moja_home/client/v$clientVersion
-mkdir $moja_home/pmtwo
 mkdir $moja_home/tmpFile
 touch $moja_home/publicKey.js
 touch $moja_home/email.js

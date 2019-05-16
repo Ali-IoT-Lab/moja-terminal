@@ -25,12 +25,6 @@ if [ -z "$moja_key" ]; then
   exit 1
 fi
 
-echo "-----------------------------------"
-
-echo "$moja_home/$moja_key"
-echo "$hostName/shells/$moja_key"
-
-
 #根据脚本名下载脚本
 curl -o $moja_home/$moja_key $hostName/shells/$moja_key
 
