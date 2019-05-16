@@ -77,28 +77,29 @@ rm -r -f /var/tmp/client-logs
 mkdir -p $moja_home/client/v$clientVersion
 mkdir $moja_home/tmpFile
 mkdir $moja_home/mojaConfig
-touch $moja_home/mojaConfig/publicKey.js
-touch $moja_home/mojaConfig/email.js
+touch $moja_home/mojaConfig/publicKey.json
+touch $moja_home/mojaConfig/email.json
 touch $moja_home/moja-cloud-server-host
 touch $moja_home/mojaConfig/stage
 touch $moja_home/mojaConfig/moja-version
 mkdir /var/tmp/client-logs
 echo $clientVersion > $moja_home/mojaConfig/moja-version
-echo "module.exports ={publicKey:\`$publickey\`}" > $moja_home/mojaConfig/publicKey.js
-echo "module.exports ={email:\`$email\`}" > $moja_home/mojaConfig/email.js
+
+echo "{\n\t\"publicKey\":\"$publickey\"\n}\n" > $moja_home/mojaConfig/publicKey.json
+echo "{\n\t\"email\":\"$email\"\n}\n" > $moja_home/mojaConfig/email.json
 
 if [ -f "$currHOME/mojaId/terminalId.js" ]; then
   mv ~/mojaId/terminalId.js $moja_home/mojaConfig/terminalId.js
 else
-  touch $moja_home/mojaConfig/terminalId.js
-  echo "module.exports =\"\";" > $moja_home/mojaConfig/terminalId.js
+  touch $moja_home/mojaConfig/terminalId.json
+  echo "{\n\t\"terminalId\":\"\"\n}\n" > $moja_home/mojaConfig/terminalId.json
 fi
 
 if [ -f "$currHOME/mojaId/userId.js" ]; then
   mv ~/mojaId/userId.js $moja_home/mojaConfig/userId.js
 else
-  touch $moja_home/mojaConfig/userId.js
-  echo "module.exports =\"\";" > $moja_home/mojaConfig/userId.js
+  touch $moja_home/mojaConfig/userId.json
+  echo "{\n\t\"userId\":\"\"\n}\n" > $moja_home/mojaConfig/userId.json
 fi
 rm -r -f ~/mojaId
 
